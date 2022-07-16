@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a1e3709f1d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/a1e3709f1d.js" crossorigin="anonymous"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/clases.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" sizes="any" type="image/svg+xml">
+
+    <title>Guacamaya Express - Administrador</title>
+</head>
+
+<body>
+    <div id="contenedor">
+        <div id="menu">
+            <section id="cabecera-menu">
+                <img id="logo" src="img/logo.svg" alt="Logo">
+                <i id="cerrar" class="fa-solid fa-xmark" onclick="menu(0);"></i>
+                <i id="abrir" class="fa-solid fa-bars" onclick="menu(1);"></i>
+            </section>
+            <section id="secciones-cabecera">
+                <section id="crud-categorias" class="subsecciones borde-azul">
+                    <h6 class="titulos-cabecera">
+                        Categorias
+                    </h6>
+                    <div class="crud">
+                        <div class="control" onclick="cambioSeccion(this, 'categorias', '-agregar');"><i class="fa-solid fa-square-plus"></i> Agregar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'categorias', '-actualizar');"><i class="fa-solid fa-arrows-rotate"></i> Actualizar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'categorias', '-mostrar'); llenarTablaCategoria();"><i class="fa-regular fa-eye"></i> Mostrar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'categorias', '-eliminar');"><i class="fa-regular fa-trash-can"></i> Eliminar</div>
+                    </div>
+                </section>
+                <section id="crud-empresas" class="subsecciones borde-azul">
+                    <h6 class="titulos-cabecera">
+                        Empresas
+                    </h6>
+                    <div class="crud">
+                        <div class="control" onclick="cambioSeccion(this, 'empresas', '-agregar');"><i class="fa-solid fa-square-plus"></i> Agregar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'empresas', '-actualizar');"><i class="fa-solid fa-arrows-rotate"></i> Actualizar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'empresas', '-mostrar'); llenarTablaEmpresa();"><i class="fa-regular fa-eye"></i> Mostrar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'empresas', '-eliminar');"><i class="fa-regular fa-trash-can"></i> Eliminar</div>
+                    </div>
+                </section>
+                <section id="crud-productos" class="subsecciones borde-azul">
+                    <h6 class="titulos-cabecera">
+                        Productos
+                    </h6>
+                    <div class="crud">
+                        <div class="control" onclick="cambioSeccion(this, 'productos', '-agregar');"><i class="fa-solid fa-square-plus"></i> Agregar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'productos', '-actualizar');"><i class="fa-solid fa-arrows-rotate"></i> Actualizar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'productos', '-mostrar'); llenarTablaProductos();"><i class="fa-regular fa-eye"></i> Mostrar</div>
+                        <div class="control" onclick="cambioSeccion(this, 'productos', '-eliminar');"><i class="fa-regular fa-trash-can"></i> Eliminar</div>
+                    </div>
+                </section>
+                <section id="opciones-ordenes" class="subsecciones borde-azul">
+                    <h6 class="titulos-cabecera">
+                        Órdenes
+                    </h6>
+                    <div class="crud">
+                        <div class="control" onclick="cambioSeccion(this, 'ordenes', ''); generarOrdenes();"><i class="fa-regular fa-square-check"></i> Disponibles</div>
+                    </div>
+                </section>
+                <section id="opciones-motoristas" class="subsecciones borde-azul">
+                    <h6 class="titulos-cabecera">
+                        Motoristas
+                    </h6>
+                    <div class="crud">
+                        <div class="control" onclick="cambioSeccion(this, 'motoristas', ''); generarMotoristas();"><i class="fa-solid fa-user-plus"></i> Aprobar o rechazar</div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <section id="section-principal">
+            <img id="imagen-principal" src="img/administrador-gris.svg" alt="Administrador">
+            <h1 id="titulo-principal">¡Abra el menú y empecemos a trabajar!</h1>
+        </section>
+
+
+        <section id="categorias-agregar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Agregar una categoría</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <input type="text" class="form-control borde-azul" id="txtcodigo-agregarCategoria" required readonly>
+                </div>
+                <div class="col-6">
+                    Categoría:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-agregarCategoria" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-agregarCategoria" required></textarea>
+                </div>
+                <div class="col-12 pt-3">
+                    Imagen:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-agregarCategoria" required>
+                </div>
+                <div class="col-12 pt-4">
+                    <button class="boton boton-verde float-right" id="button-agregarCategoria" onclick="agregarCategoria();">Agregar</button>
+                </div>
+            </div>
+        </section>
+        <section id="categorias-actualizar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Actualizar una categoría</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <select id="selectcodigo-actualizarCategoria" class="form-control borde-azul" onchange="perfilCategoria();"></select>
+                </div>
+                <div class="col-6">
+                    Categoría:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-actualizarCategoria" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-actualizarCategoria"
+                        required></textarea>
+                </div>
+                <div class="col-12 pt-3">
+                    Imagen:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-actualizarCategoria">
+                </div>
+                <div class="col-12 pt-4">
+                    <button class="boton boton-naranja float-right" id="button-actualizarCategoria" onclick="actualizarCategoria();">Actualizar</button>
+                </div>
+            </div>
+        </section>
+        <section id="categorias-mostrar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Todas las categorías</h3>
+            <div class="row p-3">
+                <div class="col-8"></div>
+                <div class="col-4">
+                    Buscar:
+                    <input type="text" class="form-control borde-azul" id="txtbuscar-verCategoria" onkeyup="buscarCategoria(this);">
+                </div>
+            </div>
+            <div class="table-responsive px-3">
+                <table class="table" id="tablecategoria-verCategoria">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tablaCategorias">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="categorias-eliminar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Eliminar categoría</h3>
+            <div class="row contenedor-eliminar">
+                <div class="col-12 pt-4">
+                    Código:
+                    <select id="selectcodigo-eliminarCategoria" class="form-control borde-rojo" onchange="nombreCategoria(this);">
+
+                    </select>
+                </div>
+                <div class="col-12 pt-4 pb-3">
+                    Categoría:
+                    <input type="text" class="form-control borde-rojo" id="txtcategoria-eliminarCategoria" readonly>
+                </div>
+                <div class="col-12 pt-4 text-center">
+                    <button class="boton boton-rojo" id="buttoneliminar-eliminarCategoria" onclick="eliminarCategoria();">Eliminar</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="empresas-agregar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Agregar una empresa</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <input type="text" class="form-control borde-azul" id="txtcodigo-agregarEmpresa" required readonly>
+                </div>
+                <div class="col-6">
+                    Empresa:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-agregarEmpresa" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-agregarEmpresa" required></textarea>
+                </div>
+                <div class="col-12 pt-3">
+                    Dirección:
+                    <textarea class="form-control borde-azul" id="txtdireccion-agregarEmpresa" required></textarea>
+                </div>
+                <div class="col-6 pt-3">
+                    Teléfono:
+                    <input type="text" class="form-control borde-azul" id="txttelefono-agregarEmpresa" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Correo:
+                    <input type="mail" class="form-control borde-azul" id="txtcorreo-agregarEmpresa" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Categoría:
+                    <select id="selectcategoria-agregarEmpresa" class="form-control borde-azul" required>
+
+                    </select>
+                </div>
+                <div class="col-6 pt-3" class="form-control borde-azul">
+                    Calificación:
+                    <select id="selectcalificacion-agregarEmpresa" class="form-control borde-azul" required>
+                        <option value="1">
+                            1
+                        </option>
+                        <option value="2">
+                            2
+                        </option>
+                        <option value="3">
+                            3
+                        </option>
+                        <option value="4">
+                            4
+                        </option>
+                        <option value="5">
+                            5
+                        </option>
+                    </select>
+                </div>
+                <div class="col-6 pt-3">
+                    Logo:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-agregarEmpresa" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Banner:
+                    <input type="file" class="form-control borde-azul" id="filebanner-agregarEmpresa" required>
+                </div>
+                <div class="col-10"></div>
+                <div class="col-2 pt-4">
+                    <button class="boton boton-verde float-right" id="button-agregarEmpresa" onclick="agregarEmpresa();">Agregar</button>
+                </div>
+            </div>
+        </section>
+        <section id="empresas-actualizar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Actualizar una empresa</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <select id="selectcodigo-actualizarEmpresa" class="form-control borde-azul" onchange="perfilEmpresa();"></select>
+                </div>
+                <div class="col-6">
+                    Empresa:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-actualizarEmpresa" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-actualizarEmpresa" required></textarea>
+                </div>
+                <div class="col-12 pt-3">
+                    Dirección:
+                    <textarea class="form-control borde-azul" id="txtdireccion-actualizarEmpresa" required></textarea>
+                </div>
+                <div class="col-6 pt-3">
+                    Teléfono:
+                    <input type="text" class="form-control borde-azul" id="txttelefono-actualizarEmpresa" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Correo:
+                    <input type="mail" class="form-control borde-azul" id="txtcorreo-actualizarEmpresa" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Categoría:
+                    <select id="selectcategoria-actualizarEmpresa" class="form-control borde-azul" required></select>
+                </div>
+                <div class="col-6 pt-3" class="form-control borde-azul">
+                    Calificación:
+                    <select id="selectcalificacion-actualizarEmpresa" class="form-control borde-azul" required>
+                        <option value="1">
+                            1
+                        </option>
+                        <option value="2">
+                            2
+                        </option>
+                        <option value="3">
+                            3
+                        </option>
+                        <option value="4">
+                            4
+                        </option>
+                        <option value="5">
+                            5
+                        </option>
+                    </select>
+                </div>
+                <div class="col-6 pt-3">
+                    Logo:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-actualizarEmpresa">
+                </div>
+                <div class="col-6 pt-3">
+                    Banner:
+                    <input type="file" class="form-control borde-azul" id="filebanner-actualizarEmpresa">
+                </div>
+                <div class="col-10"></div>
+                <div class="col-2 pt-4">
+                    <button class="boton boton-naranja float-right" id="button-actualizarEmpresa" onclick="actualizarEmpresa();">Actualizar</button>
+                </div>
+            </div>
+        </section>
+        <section id="empresas-mostrar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Empresas afiliadas</h3>
+            <div class="row p-3">
+                <div class="col-1"></div>
+                <div class="col-2"></div>
+                <div class="col-2"></div>
+                <div class="col-2"></div>
+                <div class="col-3">
+                    Categoría:
+                    <select id="selectcategoria-verEmpresa" class="form-control borde-azul" onchange="listarProductosCategoria(this);"></select>
+                </div>
+                <div class="col-2">
+                    Buscar:
+                    <input type="text" class="form-control borde-azul" id="txtbuscar-verEmpresa" onkeyup="buscarEmpresa(this);">
+                </div>
+            </div>
+            <div class="table-responsive px-3">
+                <table class="table" id="tableempresas-verEmpresas">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Correo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tablaEmpresas">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="empresas-eliminar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Eliminar empresa</h3>
+            <div class="row contenedor-eliminar">
+                <div class="col-12 pt-4">
+                    Código:
+                    <select id="selectcodigo-eliminarEmpresa" class="form-control borde-rojo" onchange="nombreEmpresa(this)">
+
+                    </select>
+                </div>
+                <div class="col-12 pt-4 pb-3">
+                    Empresa:
+                    <input type="text" class="form-control borde-rojo" id="txtempresa-eliminarEmpresa" readonly>
+                </div>
+                <div class="col-12 pt-4 text-center">
+                    <button class="boton boton-rojo" id="buttoneliminar-eliminarEmpresa"onclick="eliminarEmpresa();">Eliminar</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="productos-agregar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Agregar un producto</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <input type="text" class="form-control borde-azul" id="txtcodigo-agregarProducto" required readonly>
+                </div>
+                <div class="col-6">
+                    Producto:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-agregarProducto" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-agregarProducto" required></textarea>
+                </div>
+                <div class="col-6 pt-3">
+                    Cantidad:
+                    <input type="text" class="form-control borde-azul" id="txtcantidad-agregarProducto" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Precio (lps.):
+                    <input type="text" class="form-control borde-azul" id="txtprecio-agregarProducto" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Empresa:
+                    <select id="selectempresa-agregarProducto" class="form-control borde-azul" required>
+
+                    </select>
+                </div>
+                <div class="col-6 pt-3">
+                    Imagen:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-agregarProducto" required>
+                </div>
+                <div class="col-10"></div>
+                <div class="col-2 pt-4">
+                    <button class="boton boton-verde float-right" id="button-agregarProducto" onclick="agregarProducto();">Agregar</button>
+                </div>
+            </div>
+        </section>
+        <section id="productos-actualizar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Actualizar un producto</h3>
+            <div class="row p-3">
+                <div class="col-6">
+                    Código:
+                    <select id="selectcodigo-actualizarProducto" class="form-control borde-azul" onchange="perfilProducto();"></select>
+                </div>
+                <div class="col-6">
+                    Producto:
+                    <input type="text" class="form-control borde-azul" id="txtnombre-actualizarProducto" required>
+                </div>
+                <div class="col-12 pt-3">
+                    Descripción:
+                    <textarea class="form-control borde-azul" id="txtdescripcion-actualizarProducto"
+                        required></textarea>
+                </div>
+                <div class="col-6 pt-3">
+                    Cantidad:
+                    <input type="text" class="form-control borde-azul" id="txtcantidad-actualizarProducto" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Precio (lps.):
+                    <input type="text" class="form-control borde-azul" id="txtprecio-actualizarProducto" required>
+                </div>
+                <div class="col-6 pt-3">
+                    Empresa:
+                    <select id="selectempresa-actualizarProducto" class="form-control borde-azul" required>
+
+                    </select>
+                </div>
+                <div class="col-6 pt-3">
+                    Imagen:
+                    <input type="file" class="form-control borde-azul" id="fileimagen-actualizarProducto">
+                </div>
+                <div class="col-10"></div>
+                <div class="col-2 pt-4">
+                    <button class="boton boton-naranja float-right" id="button-actualizarProducto" onclick="actualizarProducto();">Actualizar</button>
+                </div>
+            </div>
+        </section>
+        <section id="productos-mostrar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Productos registrados</h3>
+            <div class="row p-3">
+                <div class="col-8"></div>
+                <div class="col-4">
+                    Buscar:
+                    <input type="text" class="form-control borde-azul" id="txtbuscar-verProducto" onkeyup="buscarProducto(this);">
+                </div>
+            </div>
+            <div class="table-responsive px-3">
+                <table class="table" id="tableproductos-verProducto">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tablaProductos">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="productos-eliminar" class="sections bg-white pt-3 borde-azul">
+            <h3 class="ml-4">Eliminar producto</h3>
+            <div class="row contenedor-eliminar">
+                <div class="col-12 pt-4">
+                    Código:
+                    <select id="selectcodigo-eliminarProducto" class="form-control borde-rojo" onchange="nombreProducto(this)">
+
+                    </select>
+                </div>
+                <div class="col-12 pt-4 pb-3">
+                    Producto:
+                    <input type="text" class="form-control borde-rojo" id="txtproducto-eliminarProducto" readonly>
+                </div>
+                <div class="col-12 pt-4 text-center">
+                    <button class="boton boton-rojo" id="buttoneliminar-eliminarProducto" onclick="eliminarProducto();">Eliminar</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="ordenes" class="sections bg-white pt-3 px-4 borde-azul">
+            <h3 class="ml-4">Ordenes disponibles</h3>
+            <div class="row radius mx-auto mt-4" id="contenido-ordenes">
+                
+            </div>
+        </section>
+
+
+        <section id="motoristas" class="sections bg-white pt-3 px-4 borde-azul">
+            <h3 class="ml-4">Motoristas en espera</h3>
+            <div class="row py-1" id="contenedorMotoristas">
+                
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div id="redes-footer">
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <hr>
+        <p id="copyright">Guacamaya Express | Todos los derechos reservados | © 2022</p>
+    </footer>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content borde-naranja">
+                <div id="modal-body-administrador" class="modal-body px-5">
+                    <h5 class="titulo-modal mb-5 mt-3 text-center">Seleccione un motorista:</h5>
+                    <select id="selectmotorista" class="mb-5 form-control">
+
+                    </select>
+                    <div class="text-center mb-3">
+                        <button class="boton boton-blanco borde-naranja" id="asignarMotorista" onclick="asignarMotorista();">Asignar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/script.js"></script>
+
+</html>
