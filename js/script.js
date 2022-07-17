@@ -292,6 +292,8 @@ function cargarValores() {
     let codigoEliminarEmpresa = document.getElementById('selectcodigo-eliminarEmpresa');
     let codigoEliminarProducto = document.getElementById('selectcodigo-eliminarProducto');
 
+    let categoriaMostrarEmpresa = document.getElementById('selectcategoria-verEmpresa');
+
     codigoEliminarCategoria.innerHTML = '';
     codigoEliminarEmpresa.innerHTML = '';
     codigoEliminarProducto.innerHTML = '';
@@ -299,6 +301,7 @@ function cargarValores() {
     empresaAgregarProducto.innerHTML = '';
     categoriaActualizarEmpresa.innerHTML = '';
     empresaActualizarProducto.innerHTML = '';
+    categoriaMostrarEmpresa.innerHTML = '<option value=""></option>';
     
 
     categorias.forEach(categoria => {
@@ -307,6 +310,7 @@ function cargarValores() {
             codigoEliminarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.categoria}</option>`;
             categoriaAgregarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
             categoriaActualizarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
+            categoriaMostrarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
         }
     });
     empresas.forEach(empresa => {
@@ -892,6 +896,29 @@ function vaciarCampos() {
     Array.from(selects).forEach(select => select.value = '');
     let textareas = document.getElementsByTagName('textarea');
     Array.from(textareas).forEach(textarea => textarea.value = '');
+}
+
+function listarProductosCategoria(elemento) {
+    filtro = empresas.filter(empresa => (empresa.categoria == elemento.value));
+
+    if (filtro.length != 0) {
+        let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
+        cuerpo.innerHTML = '';
+
+        filtro.forEach(empresa => {
+            cuerpo.innerHTML += 
+            `<tr>
+                <th scope="row">${empresa.codigo}</th>
+                <td>${empresa.empresa}</td>
+                <td>${empresa.descripcion}</td>
+                <td>${empresa.direccion}</td>
+                <td>${empresa.telefono}</td>
+                <td>${empresa.correo}</td>
+            </tr>`;
+        });
+    } else {
+        llenarTablaEmpresa();
+    }
 }
 
 cargarLocalStorage();
