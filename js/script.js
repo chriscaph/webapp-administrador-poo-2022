@@ -1,229 +1,279 @@
+var usuarios = [
+    {
+        codigo: 'U-1',
+        nombre: 'Juan',
+        usuario: 'juan123',
+        password: '1234',
+        tipo: 'A'
+    },
+    {
+        codigo: 'U-2',
+        nombre: 'Pedro',
+        usuario: 'pedro123',
+        password: '1234',
+        tipo: 'A'
+    },
+    {
+        codigo: 'U-3',
+        nombre: 'Carlos',
+        usuario: 'carlos123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: true,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-4',
+        nombre: 'María',
+        usuario: 'maria123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: false,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-5',
+        nombre: 'Alberto',
+        usuario: 'alberto123',
+        password: '1234',
+        tipo: 'B',
+        aprobado: null,
+        ordenesTomadas: [],
+        ordenesEntregadas: []
+    },
+    {
+        codigo: 'U-6',
+        nombre: 'Alex',
+        usuario: 'alex123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-7',
+        nombre: 'Matusalen',
+        usuario: 'matusalen123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-8',
+        nombre: 'Francisco',
+        usuario: 'francisco123',
+        password: '1234',
+        tipo: 'C'
+    },
+    {
+        codigo: 'U-9',
+        nombre: 'Paola',
+        usuario: 'paola123',
+        password: '1234',
+        tipo: 'C'
+    }
+];
+
 var categorias = [
     {
         codigo: 'C-1',
-        categoria: 'Categoría 1',
-        descripcion: 'lorem ipsum.',
-        imagen: 'ejemploImagen 1.png',
-        eliminado: false
+        nombre: 'Farmacias',
+        imagen: 'farmacia.png',
+        descripcion: 'Lorem ipsum.',
+        empresas: [
+            {
+                codigo: 'E-1',
+                nombre: 'Farmacias Kielsa',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-0011',
+                calificacion: 5,
+                direccion: 'Estamos ubicados en el boulevard Morazán.',
+                correo: 'kielsahonduras@kielsa.com',
+                logo: 'kielsa-logo.png',
+                banner: 'kielsa-banner.png',
+                productos: [
+                    {
+                        codigo: 'P-1',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
+                    },
+                    {
+                        codigo: 'P-2',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
+                    }
+                ]
+            },
+            {
+                codigo: 'E-2',
+                nombre: 'Farmacias del ahorro',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-2020',
+                calificacion: 4,
+                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
+                correo: 'farmaciasdelahorro@ahorro.com',
+                logo: 'ahorro-logo.png',
+                banner: 'ahorro-banner.png',
+                productos: [
+                    {
+                        codigo: 'P-3',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
+                    },
+                    {
+                        codigo: 'P-4',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
+                    }
+                ]
+            }
+        ]
     },
     {
         codigo: 'C-2',
-        categoria: 'Categoría 2',
-        descripcion: 'lorem ipsum.',
-        imagen: 'ejemploImagen 1.png',
-        eliminado: false
-    }
-];
-
-var empresas = [
-    {
-        codigo: 'E-1',
-        empresa: 'Empresa 1',
-        descripcion: 'lorem ipsum',
-        telefono: '2771-9483',
-        calificacion: 4,
-        direccion: 'lorem ipsum',
-        correo: 'empresa@gmail.com',
-        categoria: 'Categoría 1',
-        logo: 'ejemploImagen 1.png',
-        banner: 'ejemploBanner 1.png',
-        eliminado: false
-    },
-    {
-        codigo: 'E-2',
-        empresa: 'Empresa 2',
-        descripcion: 'lorem ipsum',
-        telefono: '2771-9483',
-        calificacion: 4,
-        direccion: 'lorem ipsum',
-        correo: 'empresa@gmail.com',
-        categoria: 'Categoría 1',
-        logo: 'ejemploImagen 1.png',
-        banner: 'ejemploBanner 1.png',
-        eliminado: false
-    },
-    {
-        codigo: 'E-3',
-        empresa: 'Empresa 3',
-        descripcion: 'lorem ipsum',
-        telefono: '2771-9483',
-        calificacion: 4,
-        direccion: 'lorem ipsum',
-        correo: 'empresa@gmail.com',
-        categoria: 'Categoría 2',
-        logo: 'ejemploImagen 1.png',
-        banner: 'ejemploBanner 1.png',
-        eliminado: false
-    }
-];
-
-var productos = [
-    {
-        codigo: 'P-1',
-        producto: 'Producto 1',
-        descripcion: 'lorem ipsum.',
-        cantidad: 10,
-        precio: 99.95,
-        imagen: 'ejemploImagen 1.png',
-        empresa: 'Empresa 1',
-        eliminado: false
-    },
-    {
-        codigo: 'P-2',
-        producto: 'Producto 2',
-        descripcion: 'lorem ipsum.',
-        cantidad: 10,
-        precio: 99.95,
-        imagen: 'ejemploImagen 1.png',
-        empresa: 'Empresa 2',
-        eliminado: false
-    },
-    {
-        codigo: 'P-3',
-        producto: 'Producto 3',
-        descripcion: 'lorem ipsum.',
-        cantidad: 10,
-        precio: 99.95,
-        imagen: 'ejemploImagen 1.png',
-        empresa: 'Empresa 2',
-        eliminado: false
-    },
-    {
-        codigo: 'P-4',
-        producto: 'Producto 4',
-        descripcion: 'lorem ipsum.',
-        cantidad: 10,
-        precio: 99.95,
-        imagen: 'ejemploImagen 1.png',
-        empresa: 'Empresa 3',
-        eliminado: false
+        nombre: 'Farmacias',
+        imagen: 'farmacia.png',
+        descripcion: 'Lorem ipsum.',
+        empresas: [
+            {
+                codigo: 'E-3',
+                nombre: 'Farmacias Kielsa',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-0011',
+                calificacion: 5,
+                direccion: 'Estamos ubicados en el boulevard Morazán.',
+                correo: 'kielsahonduras@kielsa.com',
+                logo: 'kielsa-logo.png',
+                banner: 'kielsa-banner.png',
+                productos: [
+                    {
+                        codigo: 'P-5',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
+                    },
+                    {
+                        codigo: 'P-6',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
+                    }
+                ]
+            },
+            {
+                codigo: 'E-4',
+                nombre: 'Farmacias del ahorro',
+                descripcion: 'Ubicados en cualquier punto estratégico del país.',
+                telefono: '2772-2020',
+                calificacion: 4,
+                direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
+                correo: 'farmaciasdelahorro@ahorro.com',
+                logo: 'ahorro-logo.png',
+                banner: 'ahorro-banner.png',
+                productos: [
+                    {
+                        codigo: 'P-7',
+                        nombre: 'Panadol ultra 104 tabletas',
+                        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
+                        cantiddad: 25,
+                        precio: 314.95,
+                        imagen: 'panadol-ultra.jpg'
+                    },
+                    {
+                        codigo: 'P-8',
+                        nombre: 'Sudagrip antigripal',
+                        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
+                        cantiddad: 100,
+                        precio: 14.98,
+                        imagen: 'sudagrip-antigripal.png'
+                    }
+                ]
+            }
+        ]
     }
 ];
 
 var ordenes = [
     {
         codigo: 'O-1',
-        orden: 'Orden 1',
-        cliente:
-            {
-                nombre: 'Christian Ariel Palacios Hernández',
-                correo: 'christianarielph@gmail.com',
-                celular: '+504 9716-0785'
-            },
-        envio:
-            {
-                productos: [
-                    {
-                        codigo: 'P-1',
-                        producto: 'Producto 1'
-                    },
-                    {
-                        codigo: 'P-2',
-                        producto: 'Producto 2'
-                    }
-                    
-                ],
-                direccion: 'Lorem ipsum',
-                empresa: 'Empresa 1',
-                total: 250,
-                mapa: 'mapa 1.png'
-            }
-    },
-    {
-        codigo: 'O-2',
-        orden: 'Orden 2',
-        cliente:
-            {
-                nombre: 'Christian Ariel Palacios Hernández',
-                correo: 'christianarielph@gmail.com',
-                celular: '+504 9716-0785'
-            },
-        envio:
-            {
-                productos: [
-                    {
-                        codigo: 'P-1',
-                        producto: 'Producto 1'
-                    },
-                    {
-                        codigo: 'P-2',
-                        producto: 'Producto 2'
-                    }
-                    
-                ],
-                direccion: 'Lorem ipsum',
-                empresa: 'Empresa 1',
-                total: 250,
-                mapa: 'mapa 1.png'
-            }
+        nombre: 'Orden 1',
+        estado: 'disponible',
+        cliente: {
+            nombre: 'Alex',
+            telefono: '9199-1111',
+            correo: 'alex@unah.hn'
+        },
+        envio: {
+            productos: [
+                {
+                    codigo: 'P-1',
+                    nombre: 'Panadol ultra 104 tabletas',
+                    precio: 314.95,
+                    cantidad: 3
+                },
+                {
+                    codigo: 'P-2',
+                    nombre: 'Sudagrip antigripal',
+                    precio: 14.98,
+                    cantidad: 2
+                }
+            ],
+            direccion: 'lorem ipsum.',
+            empresa: 'Farmacias Kielsa',
+            subtotal: 974.81,
+            isv: 146.22,
+            comisionMotorista: 97.48,
+            comisionAdministrador: 48.74,
+            total: 292.44,
+            estado: null,
+            coordenadas: null,
+            motorista: null,
+
+        }
     }
 ];
 
-var motoristas = [
-    {
-        codigo: 'M-1',
-        motorista: 'motorista 1',
-        tomadas: [],
-        entregadas: []
-    },
-    {
-        codigo: 'M-2',
-        motorista: 'motorista 2',
-        tomadas: [],
-        entregadas: []
-    },
-    {
-        codigo: 'M-3',
-        motorista: 'motorista 3',
-        tomadas: [],
-        entregadas: []
-    }
-];
+localStorage.setItem('usuarios', JSON.stringify(usuarios));
+localStorage.setItem('categorias', JSON.stringify(categorias));
+localStorage.setItem('ordenes', JSON.stringify(ordenes));
 
-var motoristasEnEspera = [
-    {
-        codigo: 'M-4',
-        motorista: 'motorista 4',
-        aprobado: false
-    },
-    {
-        codigo: 'M-5',
-        motorista: 'motorista 5',
-        aprobado: null,
-    },
-    {
-        codigo: 'M-6',
-        motorista: 'motorista 6',
-        aprobado: null
-    },
-    {
-        codigo: 'M-7',
-        motorista: 'motorista 7',
-        aprobado: null,
-    }
-    
-]
+var empresas = [];
+var productos = [];
 
-//funcionalidad
+for (let i = 0; i < categorias.length; i++) {
+    categorias[i].empresas.forEach(empresa => {
+        empresas.push(empresa);
+    });
+}
+
+for (let i = 0; i < empresas.length; i++) {
+    empresas[i].productos.forEach(producto => {
+        productos.push(producto);
+    });
+}
+
 var sections = document.getElementsByClassName('sections');
 var sectionPrincipal = document.getElementById('section-principal');
 var controles = document.getElementsByClassName('control');
 
-function cargarLocalStorage() {
-    localStorage.setItem('categorias', JSON.stringify(categorias));
-    localStorage.setItem('empresas', JSON.stringify(empresas));
-    localStorage.setItem('productos', JSON.stringify(productos));
-    localStorage.setItem('motoristas', JSON.stringify(motoristas));
-    localStorage.setItem('motoristasEnEspera', JSON.stringify(motoristasEnEspera));
-    localStorage.setItem('ordenes', JSON.stringify(ordenes));
-}
-
 function obtenerLocalStorage() {
+    usuarios = JSON.parse(localStorage.getItem('usuarios'));
     categorias = JSON.parse(localStorage.getItem('categorias'));
-    empresas = JSON.parse(localStorage.getItem('empresas'));
-    productos = JSON.parse(localStorage.getItem('productos'));
-    motoristasEnEspera = JSON.parse(localStorage.getItem('motoristasEnEspera'));
-    motoristas = JSON.parse(localStorage.getItem('motoristas'));
     ordenes = JSON.parse(localStorage.getItem('ordenes'));
 }
 
@@ -305,27 +355,21 @@ function cargarValores() {
     
 
     categorias.forEach(categoria => {
-        if (!categoria.eliminado) {
-            codigoActualizarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo}</option>`;
-            codigoEliminarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.categoria}</option>`;
-            categoriaAgregarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
-            categoriaActualizarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
-            categoriaMostrarEmpresa.innerHTML += `<option value="${categoria.categoria}">${categoria.codigo} - ${categoria.categoria}</option>`;
-        }
+        codigoActualizarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo}</option>`;
+        codigoEliminarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.nombre}</option>`;
+        categoriaAgregarEmpresa.innerHTML += `<option value="${categoria.nombre}">${categoria.codigo} - ${categoria.nombre}</option>`;
+        categoriaActualizarEmpresa.innerHTML += `<option value="${categoria.nombre}">${categoria.codigo} - ${categoria.nombre}</option>`;
+        categoriaMostrarEmpresa.innerHTML += `<option value="${categoria.nombre}">${categoria.codigo} - ${categoria.nombre}</option>`;
     });
     empresas.forEach(empresa => {
-        if (!empresa.eliminado) {
-            codigoActualizarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo}</option>`;
-            codigoEliminarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo} - ${empresa.empresa}</option>`;
-            empresaActualizarProducto.innerHTML += `<option value="${empresa.empresa}">${empresa.codigo} - ${empresa.empresa}</option>`;
-            empresaAgregarProducto.innerHTML += `<option value="${empresa.empresa}">${empresa.codigo} - ${empresa.empresa}</option>`;
-        }
+        codigoActualizarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo}</option>`;
+        codigoEliminarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo} - ${empresa.nombre}</option>`;
+        empresaActualizarProducto.innerHTML += `<option value="${empresa.nombre}">${empresa.codigo} - ${empresa.nombre}</option>`;
+        empresaAgregarProducto.innerHTML += `<option value="${empresa.nombre}">${empresa.codigo} - ${empresa.nombre}</option>`;
     });
     productos.forEach(producto => {
-        if (!producto.eliminado) {
-            codigoActualizarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo}</option>`;
-            codigoEliminarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo} - ${producto.producto}</option>`;
-        }
+        codigoActualizarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo}</option>`;
+        codigoEliminarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo} - ${producto.nombre}</option>`;
     });
 }
 
@@ -365,7 +409,7 @@ function perfilCategoria() {
 
     let filtro = categorias.filter(categoria => categoria.codigo == codigo.value)[0];
 
-    nombre.value = filtro.categoria;
+    nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
 }
 
@@ -379,7 +423,7 @@ function actualizarCategoria() {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
         let filtro = categorias.filter(categoria => categoria.codigo == codigo.value)[0];
-        filtro.categoria = nombre.value;
+        filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
         if (imagen != null) {
             filtro.imagen = imagen.value;
@@ -400,7 +444,7 @@ function llenarTablaCategoria() {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${categoria.codigo}</th>
-                <td>${categoria.categoria}</td>
+                <td>${categoria.nombre}</td>
                 <td>${categoria.descripcion}</td>
             </tr>`;
         }
@@ -408,7 +452,7 @@ function llenarTablaCategoria() {
 }
 
 function buscarCategoria(elemento) {
-    filtro = categorias.filter(categoria => (categoria.codigo == elemento.value || categoria.categoria == elemento.value || categoria.descripcion == elemento.value) && !categoria.eliminado);
+    filtro = categorias.filter(categoria => (categoria.codigo == elemento.value || categoria.nombre == elemento.value || categoria.descripcion == elemento.value) && !categoria.eliminado);
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaCategorias');
@@ -418,7 +462,7 @@ function buscarCategoria(elemento) {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${categoria.codigo}</th>
-                <td>${categoria.categoria}</td>
+                <td>${categoria.nombre}</td>
                 <td>${categoria.descripcion}</td>
             </tr>`;
         });
@@ -429,7 +473,7 @@ function buscarCategoria(elemento) {
 
 function nombreCategoria(elemento) {
     let filtro = categorias.filter(categoria => categoria.codigo == elemento.value)[0];
-    document.getElementById('txtcategoria-eliminarCategoria').value = filtro.categoria;
+    document.getElementById('txtcategoria-eliminarCategoria').value = filtro.nombre;
 }
 
 function eliminarCategoria() {
@@ -501,12 +545,12 @@ function perfilEmpresa() {
 
     let filtro = empresas.filter(empresa => empresa.codigo == codigo.value)[0];
 
-    nombre.value = filtro.empresa;
+    nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
     direccion.value = filtro.direccion;
     telefono.value = filtro.telefono;
     correo.value = filtro.correo;
-    categoria.value = filtro.categoria;
+    categoria.value = filtro.nombre;
     calificacion.value = filtro.calificacion;
 }
 
@@ -526,7 +570,7 @@ function actualizarEmpresa() {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
         let filtro = empresas.filter(empresa => empresa.codigo == codigo.value)[0];
-        filtro.empresa = nombre.value;
+        filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
         filtro.direccion = direccion.value;
         filtro.telefono = telefono.value;
@@ -554,7 +598,7 @@ function llenarTablaEmpresa() {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${empresa.codigo}</th>
-                <td>${empresa.empresa}</td>
+                <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
                 <td>${empresa.telefono}</td>
@@ -565,7 +609,7 @@ function llenarTablaEmpresa() {
 }
 
 function buscarEmpresa(elemento) {
-    filtro = empresas.filter(empresa => (empresa.codigo == elemento.value || empresa.empresa == elemento.value || empresa.descripcion == elemento.value || empresa.telefono == elemento.value || empresa.correo == elemento.value || empresa.direccion == elemento.value) && !empresa.eliminado);
+    filtro = empresas.filter(empresa => (empresa.codigo == elemento.value || empresa.nombre == elemento.value || empresa.descripcion == elemento.value || empresa.telefono == elemento.value || empresa.correo == elemento.value || empresa.direccion == elemento.value) && !empresa.eliminado);
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
@@ -575,7 +619,7 @@ function buscarEmpresa(elemento) {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${empresa.codigo}</th>
-                <td>${empresa.empresa}</td>
+                <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
                 <td>${empresa.telefono}</td>
@@ -589,7 +633,7 @@ function buscarEmpresa(elemento) {
 
 function nombreEmpresa(elemento) {
     let filtro = empresas.filter(empresa => empresa.codigo == elemento.value)[0];
-    document.getElementById('txtempresa-eliminarEmpresa').value = filtro.empresa;
+    document.getElementById('txtempresa-eliminarEmpresa').value = filtro.nombre;
 }
 
 function eliminarEmpresa() {
@@ -650,11 +694,11 @@ function perfilProducto() {
 
     let filtro = productos.filter(producto => producto.codigo == codigo.value)[0];
 
-    nombre.value = filtro.producto;
+    nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
     cantidad.value = filtro.cantidad;
     precio.value = filtro.precio;
-    empresa.value = filtro.empresa;
+    empresa.value = filtro.nombre;
 }
 
 function actualizarProducto() {
@@ -670,11 +714,11 @@ function actualizarProducto() {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
         let filtro = productos.filter(producto => producto.codigo == codigo.value)[0];
-        filtro.producto = nombre.value;
+        filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
         filtro.cantidad = cantidad.value;
         filtro.precio = precio.value;
-        filtro.empresa = empresa.value;
+        filtro.nombre = empresa.value;
         if (imagen != null) {
             filtro.imagen = imagen.value;
         }
@@ -694,7 +738,7 @@ function llenarTablaProductos() {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${producto.codigo}</th>
-                <td>${producto.producto}</td>
+                <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
                 <td>${producto.empresa}</td>
@@ -705,7 +749,7 @@ function llenarTablaProductos() {
 }
 
 function buscarProducto(elemento) {
-    filtro = productos.filter(producto => (producto.codigo == elemento.value || producto.producto == elemento.value || producto.descripcion == elemento.value || producto.cantidad == elemento.value || producto.empresa == elemento.value || producto.precio == elemento.value) && !producto.eliminado);;
+    filtro = productos.filter(producto => (producto.codigo == elemento.value || producto.nombre == elemento.value || producto.descripcion == elemento.value || producto.cantidad == elemento.value || producto.empresa == elemento.value || producto.precio == elemento.value) && !producto.eliminado);;
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaProductos');
@@ -715,7 +759,7 @@ function buscarProducto(elemento) {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${producto.codigo}</th>
-                <td>${producto.producto}</td>
+                <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
                 <td>${producto.empresa}</td>
@@ -729,7 +773,7 @@ function buscarProducto(elemento) {
 
 function nombreProducto(elemento) {
     let filtro = productos.filter(producto => producto.codigo == elemento.value)[0];
-    document.getElementById('txtproducto-eliminarProducto').value = filtro.producto;
+    document.getElementById('txtproducto-eliminarProducto').value = filtro.nombre;
 }
 
 function eliminarProducto() {
@@ -787,7 +831,7 @@ function verOrden(codigo) {
     orden = ordenes.filter(o => o.codigo == codigo)[0];
     let entrega = '';
     orden.envio.productos.forEach(producto => {
-        entrega += producto.producto + '; ';
+        entrega += producto.nombre + '; ';
     });
     contenidoOrdenes.classList.add('borde-naranja');
     contenidoOrdenes.innerHTML = 
@@ -909,7 +953,7 @@ function listarProductosCategoria(elemento) {
             cuerpo.innerHTML += 
             `<tr>
                 <th scope="row">${empresa.codigo}</th>
-                <td>${empresa.empresa}</td>
+                <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
                 <td>${empresa.telefono}</td>
@@ -921,6 +965,5 @@ function listarProductosCategoria(elemento) {
     }
 }
 
-cargarLocalStorage();
 obtenerLocalStorage();
 cargarValores();
