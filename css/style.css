@@ -36,6 +36,11 @@ select {
     font-size: 14px;
 }
 
+.table-responsive {
+    overflow-y: auto;
+    height: 500px;
+}
+
 .subsecciones {
     background-color: white;
     border-radius: 5px;

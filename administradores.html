@@ -102,12 +102,12 @@
 
         <section id="categorias-agregar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Agregar una categoría</h3>
-            <div class="row p-3">
-                <div class="col-6">
+            <form class="row p-3">
+                <div class="col-12 col-md-6">
                     Código:
                     <input type="text" class="form-control borde-azul" id="txtcodigo-agregarCategoria" required readonly>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Categoría:
                     <input type="text" class="form-control borde-azul" id="txtnombre-agregarCategoria" required>
                 </div>
@@ -122,16 +122,16 @@
                 <div class="col-12 pt-4">
                     <button class="boton boton-verde float-right" id="button-agregarCategoria" onclick="agregarCategoria();">Agregar</button>
                 </div>
-            </div>
+            </form>
         </section>
         <section id="categorias-actualizar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Actualizar una categoría</h3>
             <div class="row p-3">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Código:
                     <select id="selectcodigo-actualizarCategoria" class="form-control borde-azul" onchange="perfilCategoria();"></select>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Categoría:
                     <input type="text" class="form-control borde-azul" id="txtnombre-actualizarCategoria" required>
                 </div>
@@ -152,8 +152,8 @@
         <section id="categorias-mostrar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Todas las categorías</h3>
             <div class="row p-3">
-                <div class="col-8"></div>
-                <div class="col-4">
+                <div class="col-md-8 col-2"></div>
+                <div class="col-md-4 col-10">
                     Buscar:
                     <input type="text" class="form-control borde-azul" id="txtbuscar-verCategoria" onkeyup="buscarCategoria(this);">
                 </div>
@@ -196,11 +196,11 @@
         <section id="empresas-agregar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Agregar una empresa</h3>
             <div class="row p-3">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Código:
                     <input type="text" class="form-control borde-azul" id="txtcodigo-agregarEmpresa" required readonly>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Empresa:
                     <input type="text" class="form-control borde-azul" id="txtnombre-agregarEmpresa" required>
                 </div>
@@ -212,21 +212,21 @@
                     Dirección:
                     <textarea class="form-control borde-azul" id="txtdireccion-agregarEmpresa" required></textarea>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Teléfono:
                     <input type="text" class="form-control borde-azul" id="txttelefono-agregarEmpresa" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Correo:
                     <input type="mail" class="form-control borde-azul" id="txtcorreo-agregarEmpresa" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Categoría:
                     <select id="selectcategoria-agregarEmpresa" class="form-control borde-azul" required>
 
                     </select>
                 </div>
-                <div class="col-6 pt-3" class="form-control borde-azul">
+                <div class="col-12 col-md-6 pt-3" class="form-control borde-azul">
                     Calificación:
                     <select id="selectcalificacion-agregarEmpresa" class="form-control borde-azul" required>
                         <option value="1">
@@ -246,11 +246,11 @@
                         </option>
                     </select>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Logo:
                     <input type="file" class="form-control borde-azul" id="fileimagen-agregarEmpresa" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Banner:
                     <input type="file" class="form-control borde-azul" id="filebanner-agregarEmpresa" required>
                 </div>
@@ -263,11 +263,11 @@
         <section id="empresas-actualizar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Actualizar una empresa</h3>
             <div class="row p-3">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Código:
                     <select id="selectcodigo-actualizarEmpresa" class="form-control borde-azul" onchange="perfilEmpresa();"></select>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Empresa:
                     <input type="text" class="form-control borde-azul" id="txtnombre-actualizarEmpresa" required>
                 </div>
@@ -279,19 +279,19 @@
                     Dirección:
                     <textarea class="form-control borde-azul" id="txtdireccion-actualizarEmpresa" required></textarea>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Teléfono:
                     <input type="text" class="form-control borde-azul" id="txttelefono-actualizarEmpresa" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Correo:
                     <input type="mail" class="form-control borde-azul" id="txtcorreo-actualizarEmpresa" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Categoría:
                     <select id="selectcategoria-actualizarEmpresa" class="form-control borde-azul" required></select>
                 </div>
-                <div class="col-6 pt-3" class="form-control borde-azul">
+                <div class="col-12 col-md-6 pt-3" class="form-control borde-azul">
                     Calificación:
                     <select id="selectcalificacion-actualizarEmpresa" class="form-control borde-azul" required>
                         <option value="1">
@@ -311,11 +311,11 @@
                         </option>
                     </select>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Logo:
                     <input type="file" class="form-control borde-azul" id="fileimagen-actualizarEmpresa">
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Banner:
                     <input type="file" class="form-control borde-azul" id="filebanner-actualizarEmpresa">
                 </div>
@@ -328,15 +328,12 @@
         <section id="empresas-mostrar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Empresas afiliadas</h3>
             <div class="row p-3">
-                <div class="col-1"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-3">
+                <div class="col-md-6 col-0"></div>
+                <div class="col-md-3 col-6">
                     Categoría:
                     <select id="selectcategoria-verEmpresa" class="form-control borde-azul" onchange="listarEmpresasCategoria(this);"></select>
                 </div>
-                <div class="col-2">
+                <div class="col-md-3 col-6">
                     Buscar:
                     <input type="text" class="form-control borde-azul" id="txtbuscar-verEmpresa" onkeyup="buscarEmpresa(this);">
                 </div>
@@ -382,11 +379,11 @@
         <section id="productos-agregar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Agregar un producto</h3>
             <div class="row p-3">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Código:
                     <input type="text" class="form-control borde-azul" id="txtcodigo-agregarProducto" required readonly>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Producto:
                     <input type="text" class="form-control borde-azul" id="txtnombre-agregarProducto" required>
                 </div>
@@ -394,21 +391,21 @@
                     Descripción:
                     <textarea class="form-control borde-azul" id="txtdescripcion-agregarProducto" required></textarea>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Cantidad:
                     <input type="text" class="form-control borde-azul" id="txtcantidad-agregarProducto" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Precio (lps.):
                     <input type="text" class="form-control borde-azul" id="txtprecio-agregarProducto" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Empresa:
                     <select id="selectempresa-agregarProducto" class="form-control borde-azul" required>
 
                     </select>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Imagen:
                     <input type="file" class="form-control borde-azul" id="fileimagen-agregarProducto" required>
                 </div>
@@ -421,11 +418,11 @@
         <section id="productos-actualizar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Actualizar un producto</h3>
             <div class="row p-3">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Código:
                     <select id="selectcodigo-actualizarProducto" class="form-control borde-azul" onchange="perfilProducto();"></select>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     Producto:
                     <input type="text" class="form-control borde-azul" id="txtnombre-actualizarProducto" required>
                 </div>
@@ -434,21 +431,21 @@
                     <textarea class="form-control borde-azul" id="txtdescripcion-actualizarProducto"
                         required></textarea>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Cantidad:
                     <input type="text" class="form-control borde-azul" id="txtcantidad-actualizarProducto" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Precio (lps.):
                     <input type="text" class="form-control borde-azul" id="txtprecio-actualizarProducto" required>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Empresa:
                     <select id="selectempresa-actualizarProducto" class="form-control borde-azul" required>
 
                     </select>
                 </div>
-                <div class="col-6 pt-3">
+                <div class="col-12 col-md-6 pt-3">
                     Imagen:
                     <input type="file" class="form-control borde-azul" id="fileimagen-actualizarProducto">
                 </div>
@@ -461,8 +458,8 @@
         <section id="productos-mostrar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Productos registrados</h3>
             <div class="row p-3">
-                <div class="col-8"></div>
-                <div class="col-4">
+                <div class="col-md-8 col-2"></div>
+                <div class="col-md-4 col-10">
                     Buscar:
                     <input type="text" class="form-control borde-azul" id="txtbuscar-verProducto" onkeyup="buscarProducto(this);">
                 </div>
