@@ -8,6 +8,20 @@ var sections = document.getElementsByClassName('sections');
 var sectionPrincipal = document.getElementById('section-principal');
 var controles = document.getElementsByClassName('control');
 
+function generarArregloUsuarios() {
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/usuarios/motoristas'
+    })
+        .then(res => {
+            usuarios = res.data;
+            generarMotoristas();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 function menu(valor) {
     let logo = document.getElementById('logo');
     let cerrar = document.getElementById('cerrar');
@@ -617,24 +631,14 @@ function generarOrdenes() {
 function abrirModal(codigo) {
     let selectMotoristas = document.getElementById('selectmotorista');
     selectMotoristas.innerHTML = '';
-    axios({
-        method: 'GET',
-        url: 'http://localhost:4200/usuarios/motoristas'
-    })
-        .then(res => {
-            usuarios = res.data;
-            usuarios.forEach(usuario => {
-                if (usuario.aprobado == true) {
-                    selectMotoristas.innerHTML +=
-                        `<option value="${usuario._id}">${usuario.nombre}</option>`;
-                }
-            });
-            orden = ordenes.filter(elem => elem._id == codigo)[0];
-            $('#modal').modal('show');
-        })
-        .catch(error => {
-            console.log(error);
-        });
+    usuarios.forEach(usuario => {
+        if (usuario.aprobado == true) {
+            selectMotoristas.innerHTML +=
+                `<option value="${usuario._id}">${usuario.nombre}</option>`;
+        }
+    });
+    orden = ordenes.filter(elem => elem._id == codigo)[0];
+    $('#modal').modal('show');
 }
 
 function asignarMotorista() {
@@ -732,18 +736,19 @@ function verOrden(codigo) {
 function generarMotoristas() {
     let contenedorMotoristas = document.getElementById('contenedorMotoristas');
     contenedorMotoristas.innerHTML = '';
+    console.log('los motoristas', usuarios);
     usuarios.forEach(motorista => {
-        if (motorista.aprobado == null && motorista.tipo == 'B') {
+        if (motorista.aprobado == null) {
             contenedorMotoristas.innerHTML +=
                 `<div class="col-12 py-1">
                 <div class="row borde-azul p-1 radius">
                     <h4 class="col-lg-10 col-md-9 col-sm-8 col-xs-6 text-left pt-2">${motorista.nombre}</h4>
                     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 acomodar">
                         <div class="text-left mx-2">
-                            <i class="fa-solid fa-circle-check check botonesMotorista" onclick="aprobarMotorista('${motorista._id}');"></i>
+                            <i class="fa-solid fa-circle-check check botonesMotorista" onclick="aprobarMotorista('${motorista._id}', true);"></i>
                         </div>
                         <div class="text-right mx-2">
-                            <i class="fa-solid fa-circle-xmark error botonesMotorista" onclick="rechazarMotorista('${motorista._id}');"></i>
+                            <i class="fa-solid fa-circle-xmark error botonesMotorista" onclick="aprobarMotorista('${motorista._id}', false);"></i>
                         </div>
                     </div>
                 </div>
@@ -752,16 +757,22 @@ function generarMotoristas() {
     });
 }
 
-function aprobarMotorista(codigo) {
-    let filtro = usuarios.filter(motorista => motorista._id == codigo)[0];
-    filtro.aprobado = true;
-    generarMotoristas();
-}
-
-function rechazarMotorista(codigo) {
-    let filtro = usuarios.filter(motorista => motorista._id == codigo)[0];
-    filtro.aprobado = false;
-    generarMotoristas();
+function aprobarMotorista(codigo, val) {
+    let dato = {aprobado: val};
+    console.log(codigo);
+    axios({
+        method: 'PUT',
+        url: `http://localhost:4200/usuarios/motoristas/${codigo}`,
+        data: dato,
+    })
+        .then(res => {
+            console.log(res);
+            generarArregloUsuarios();
+            cargarValores();
+        })
+        .catch(error => {
+            console.log('error', error);
+        });
 }
 
 function vaciarCampos() {
@@ -796,4 +807,5 @@ function listarEmpresasCategoria(elemento) {
     }
 }
 
+generarArregloUsuarios();
 cargarValores();
