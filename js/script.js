@@ -1,194 +1,9 @@
-var usuarios = [
-    {
-        codigo: 'U-1',
-        nombre: 'Juan',
-        usuario: 'juan123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-2',
-        nombre: 'Pedro',
-        usuario: 'pedro123',
-        password: '1234',
-        tipo: 'A'
-    },
-    {
-        codigo: 'U-3',
-        nombre: 'Carlos',
-        usuario: 'carlos123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: true,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-4',
-        nombre: 'María',
-        usuario: 'maria123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: false,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-5',
-        nombre: 'Alberto',
-        usuario: 'alberto123',
-        password: '1234',
-        tipo: 'B',
-        aprobado: null,
-        ordenesTomadas: [],
-        ordenesEntregadas: []
-    },
-    {
-        codigo: 'U-6',
-        nombre: 'Alex',
-        usuario: 'alex123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-7',
-        nombre: 'Matusalen',
-        usuario: 'matusalen123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-8',
-        nombre: 'Francisco',
-        usuario: 'francisco123',
-        password: '1234',
-        tipo: 'C'
-    },
-    {
-        codigo: 'U-9',
-        nombre: 'Paola',
-        usuario: 'paola123',
-        password: '1234',
-        tipo: 'C'
-    }
-];
+var categorias = [];
+var empresas = [];
+var productos = [];
+var ordenes = [];
+var usuarios = [];
 
-var categorias = [
-    {
-        codigo: 'C-1',
-        nombre: 'Farmacias',
-        imagen: 'farmacia.png',
-        descripcion: 'Lorem ipsum.',
-    }
-];
-
-var empresas = [
-    {
-        codigo: 'E-1',
-        nombre: 'Farmacias Kielsa',
-        descripcion: 'Ubicados en cualquier punto estratégico del país.',
-        telefono: '2772-0011',
-        calificacion: 5,
-        direccion: 'Estamos ubicados en el boulevard Morazán.',
-        correo: 'kielsahonduras@kielsa.com',
-        logo: 'kielsa-logo.png',
-        banner: 'kielsa-banner.png',
-        codigoCategoria: 'C-1'
-    },
-    {
-        codigo: 'E-2',
-        nombre: 'Farmacias del ahorro',
-        descripcion: 'Ubicados en cualquier punto estratégico del país.',
-        telefono: '2772-2020',
-        calificacion: 4,
-        direccion: 'Estamos ubicados en el boulevard fuerzas armadas.',
-        correo: 'farmaciasdelahorro@ahorro.com',
-        logo: 'ahorro-logo.png',
-        banner: 'ahorro-banner.png',
-        codigoCategoria: 'C-1'
-    }
-];
-
-var productos = [
-    {
-        codigo: 'P-1',
-        nombre: 'Panadol ultra 104 tabletas',
-        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-        cantidad: 25,
-        precio: 314.95,
-        imagen: 'panadol-ultra.jpg',
-        codigoEmpresa: 'E-1'
-    },
-    {
-        codigo: 'P-2',
-        nombre: 'Sudagrip antigripal',
-        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-        cantidad: 100,
-        precio: 14.98,
-        imagen: 'sudagrip-antigripal.png',
-        codigoEmpresa: 'E-1'
-    },
-    {
-        codigo: 'P-3',
-        nombre: 'Panadol ultra 104 tabletas',
-        descripcion: 'Panadol Ultra 104 tabletas para aliviar dolores.',
-        cantidad: 25,
-        precio: 314.95,
-        imagen: 'panadol-ultra.jpg',
-        codigoEmpresa: 'E-2'
-    },
-    {
-        codigo: 'P-4',
-        nombre: 'Sudagrip antigripal',
-        descripcion: 'Ingredientes activos: Acetaminofen, Sulfato de Amantadina,Fenilefrina, Clorfeniramina, Vitamica C con acción antialérgica que alivia los síntomas de la gripe y tos. Suprime los síntomas gripales como el dolor de cuerpo.',
-        cantidad: 100,
-        precio: 14.98,
-        imagen: 'sudagrip-antigripal.png',
-        codigoEmpresa: 'E-2'
-    }
-]
-
-var ordenes = [
-    {
-        codigo: 'O-1',
-        nombre: 'Orden 1',
-        estado: 'disponible',
-        cliente: {
-            nombre: 'Alex',
-            telefono: '9199-1111',
-            correo: 'alex@unah.hn'
-        },
-        envio: {
-            productos: [
-                {
-                    codigo: 'P-1',
-                    nombre: 'Panadol ultra 104 tabletas',
-                    precio: 314.95,
-                    cantidad: 3
-                },
-                {
-                    codigo: 'P-2',
-                    nombre: 'Sudagrip antigripal',
-                    precio: 14.98,
-                    cantidad: 2
-                }
-            ],
-            direccion: 'lorem ipsum.',
-            empresa: 'Farmacias Kielsa',
-            subtotal: 974.81,
-            isv: 146.22,
-            comisionMotorista: 97.48,
-            comisionAdministrador: 48.74,
-            total: 292.44,
-            estado: null,
-            coordenadas: null,
-            motorista: null,
-
-        }
-    }
-];
-
-//funcionalidad
 var sections = document.getElementsByClassName('sections');
 var sectionPrincipal = document.getElementById('section-principal');
 var controles = document.getElementsByClassName('control');
@@ -233,14 +48,6 @@ function cambioSeccion(elemento, tipo, seccion) {
 }
 
 function cargarValores() {
-    let codigoAgregarCategoria = document.getElementById('txtcodigo-agregarCategoria');
-    let codigoAgregarEmpresa = document.getElementById('txtcodigo-agregarEmpresa');
-    let codigoAgregarProducto = document.getElementById('txtcodigo-agregarProducto');
-
-    codigoAgregarCategoria.value = 'C-' + (categorias.length + 1);
-    codigoAgregarEmpresa.value = 'E-' + (empresas.length + 1);
-    codigoAgregarProducto.value = 'P-' + (productos.length + 1);
-
     let codigoActualizarCategoria = document.getElementById('selectcodigo-actualizarCategoria');
     let codigoActualizarEmpresa = document.getElementById('selectcodigo-actualizarEmpresa');
     let codigoActualizarProducto = document.getElementById('selectcodigo-actualizarProducto');
@@ -267,32 +74,65 @@ function cargarValores() {
     empresaAgregarProducto.innerHTML = '';
     categoriaActualizarEmpresa.innerHTML = '';
     empresaActualizarProducto.innerHTML = '';
-    categoriaMostrarEmpresa.innerHTML = '<option value=""></option>';
+    categoriaMostrarEmpresa.innerHTML = '';
 
 
-    categorias.forEach(categoria => {
-        codigoActualizarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo}</option>`;
-        codigoEliminarCategoria.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.nombre}</option>`;
-        categoriaAgregarEmpresa.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.nombre}</option>`;
-        categoriaActualizarEmpresa.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.nombre}</option>`;
-        categoriaMostrarEmpresa.innerHTML += `<option value="${categoria.codigo}">${categoria.codigo} - ${categoria.nombre}</option>`;
-    });
-    empresas.forEach(empresa => {
-        codigoActualizarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo}</option>`;
-        codigoEliminarEmpresa.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo} - ${empresa.nombre}</option>`;
-        empresaActualizarProducto.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo} - ${empresa.nombre}</option>`;
-        empresaAgregarProducto.innerHTML += `<option value="${empresa.codigo}">${empresa.codigo} - ${empresa.nombre}</option>`;
-    });
-    productos.forEach(producto => {
-        codigoActualizarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo}</option>`;
-        codigoEliminarProducto.innerHTML += `<option value="${producto.codigo}">${producto.codigo} - ${producto.nombre}</option>`;
-    });
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/categorias'
+    })
+        .then(res => {
+            categorias = res.data;
+            categorias.forEach(categoria => {
+                codigoActualizarCategoria.innerHTML += `<option value="${categoria._id}">${categoria._id}</option>`;
+                codigoEliminarCategoria.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
+                categoriaAgregarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
+                categoriaActualizarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
+                categoriaMostrarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/empresas'
+    })
+        .then(res => {
+            empresas = res.data;
+            console.log('empresas', empresas);
+            empresas.forEach(empresa => {
+                codigoActualizarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id}</option>`;
+                codigoEliminarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
+                empresaActualizarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
+                empresaAgregarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/productos'
+    })
+        .then(res => {
+            productos = res.data;
+            console.log('productos', productos);
+            productos.forEach(producto => {
+                codigoActualizarProducto.innerHTML += `<option value="${producto._id}">${producto._id}</option>`;
+                codigoEliminarProducto.innerHTML += `<option value="${producto._id}">${producto._id} - ${producto.nombre}</option>`;
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 
 //categorías
 function agregarCategoria() {
-    let codigo = document.getElementById('txtcodigo-agregarCategoria');
     let nombre = document.getElementById('txtnombre-agregarCategoria');
     let descripcion = document.getElementById('txtdescripcion-agregarCategoria');
     let imagen = document.getElementById('fileimagen-agregarCategoria');
@@ -300,18 +140,23 @@ function agregarCategoria() {
     if (nombre.value == '' || descripcion.value == '' || imagen.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        categorias.push({
-            codigo: codigo.value,
+        var c = {
             nombre: nombre.value,
             descripcion: descripcion.value,
             imagen: imagen.value
-        });
-        alert('¡Categoría agregada!');
-        cargarValores();
-        nombre.value = '';
-        descripcion.value = '';
-        imagen.value = '';
-        vaciarCampos();
+        }
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/categorias',
+            data: c,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -321,7 +166,7 @@ function perfilCategoria() {
     let descripcion = document.getElementById('txtdescripcion-actualizarCategoria');
     let imagen = document.getElementById('fileimagen-actualizarCategoria');
 
-    let filtro = categorias.filter(categoria => categoria.codigo == codigo.value)[0];
+    let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
 
     nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
@@ -336,15 +181,25 @@ function actualizarCategoria() {
     if (nombre.value == '' || descripcion.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = categorias.filter(categoria => categoria.codigo == codigo.value)[0];
+        let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
         filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
-        if (imagen != null) {
+        if (imagen.value != '') {
             filtro.imagen = imagen.value;
         }
-        alert('¡Categoría actualizada!');
+        axios({
+            method: 'PUT',
+            url: `http://localhost:4200/categorias/${codigo.value}`,
+            data: filtro,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
         cargarValores();
-        vaciarCampos();
     }
 }
 
@@ -353,19 +208,17 @@ function llenarTablaCategoria() {
     cuerpo.innerHTML = '';
 
     categorias.forEach(categoria => {
-        if (!categoria.eliminado) {
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${categoria.codigo}</th>
+        cuerpo.innerHTML +=
+            `<tr>
+                <th scope="row">${categoria._id}</th>
                 <td>${categoria.nombre}</td>
                 <td>${categoria.descripcion}</td>
             </tr>`;
-        }
     });
 }
 
 function buscarCategoria(elemento) {
-    filtro = categorias.filter(categoria => (categoria.codigo == elemento.value || categoria.nombre == elemento.value || categoria.descripcion == elemento.value) && !categoria.eliminado);
+    filtro = categorias.filter(categoria => (categoria._id == elemento.value || categoria.nombre == elemento.value || categoria.descripcion == elemento.value));
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaCategorias');
@@ -374,7 +227,7 @@ function buscarCategoria(elemento) {
         filtro.forEach(categoria => {
             cuerpo.innerHTML +=
                 `<tr>
-                <th scope="row">${categoria.codigo}</th>
+                <th scope="row">${categoria._id}</th>
                 <td>${categoria.nombre}</td>
                 <td>${categoria.descripcion}</td>
             </tr>`;
@@ -385,23 +238,30 @@ function buscarCategoria(elemento) {
 }
 
 function nombreCategoria(elemento) {
-    let filtro = categorias.filter(categoria => categoria.codigo == elemento.value)[0];
+    let filtro = categorias.filter(categoria => categoria._id == elemento.value)[0];
     document.getElementById('txtcategoria-eliminarCategoria').value = filtro.nombre;
 }
 
 function eliminarCategoria() {
     let codigo = document.getElementById('selectcodigo-eliminarCategoria');
-    let filtro = categorias.filter(categoria => categoria.codigo == codigo.value)[0];
+    let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
     if (confirm("¿Está seguro que desea eliminar la categoría?")) {
-        filtro.eliminado = true;
-        vaciarCampos();
-        cargarValores();
+        axios({
+            method: 'DELETE',
+            url: `http://localhost:4200/categorias/${codigo.value}`
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
 //empresas
 function agregarEmpresa() {
-    let codigo = document.getElementById('txtcodigo-agregarEmpresa');
     let nombre = document.getElementById('txtnombre-agregarEmpresa');
     let descripcion = document.getElementById('txtdescripcion-agregarEmpresa');
     let direccion = document.getElementById('txtdireccion-agregarEmpresa');
@@ -415,8 +275,7 @@ function agregarEmpresa() {
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '' || imagen.value == '' || banner.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        empresas.push({
-            codigo: codigo.value,
+        var e = {
             nombre: nombre.value,
             descripcion: descripcion.value,
             direccion: direccion.value,
@@ -424,21 +283,21 @@ function agregarEmpresa() {
             correo: correo.value,
             codigoCategoria: categoria.value,
             calificacion: calificacion.value,
-            imagen: imagen.value,
-            banner: banner.value,
-            eliminado: false
-        });
-        alert('Empresa agregada!');
-        nombre.value = '';
-        descripcion.value = '';
-        direccion.value = '';
-        telefono.value = '';
-        categoria.value = null;
-        calificacion.value = null;
-        imagen.value = '';
-        banner.value = '';
-        vaciarCampos();
-        cargarValores();
+            logo: imagen.value,
+            banner: banner.value
+        };
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/empresas',
+            data: e,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -454,7 +313,7 @@ function perfilEmpresa() {
     let imagen = document.getElementById('fileimagen-actualizarEmpresa');
     let banner = document.getElementById('filebanner-actualizarEmpresa');
 
-    let filtro = empresas.filter(empresa => empresa.codigo == codigo.value)[0];
+    let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
 
     nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
@@ -480,7 +339,7 @@ function actualizarEmpresa() {
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = empresas.filter(empresa => empresa.codigo == codigo.value)[0];
+        let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
         filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
         filtro.direccion = direccion.value;
@@ -489,14 +348,23 @@ function actualizarEmpresa() {
         filtro.calificacion = calificacion.value;
         filtro.codigoCategoria = categoria.value;
         if (imagen.value != '') {
-            filtro.imagen = imagen.value;
+            filtro.logo = imagen.value;
         }
         if (banner.value != '') {
             filtro.banner = banner.value;
         }
-        alert('Empresa actualizada!');
-        vaciarCampos();
-        cargarValores();
+        axios({
+            method: 'PUT',
+            url: `http://localhost:4200/empresas/${codigo.value}`,
+            data: filtro,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -505,22 +373,20 @@ function llenarTablaEmpresa() {
     cuerpo.innerHTML = '';
 
     empresas.forEach(empresa => {
-        if (!empresa.eliminado) {
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${empresa.codigo}</th>
+        cuerpo.innerHTML +=
+            `<tr>
+                <th scope="row">${empresa._id}</th>
                 <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
                 <td>${empresa.telefono}</td>
                 <td>${empresa.correo}</td>
-        </tr>`;
-        }
+            </tr>`;
     });
 }
 
 function buscarEmpresa(elemento) {
-    filtro = empresas.filter(empresa => (empresa.codigo == elemento.value || empresa.nombre == elemento.value || empresa.descripcion == elemento.value || empresa.telefono == elemento.value || empresa.correo == elemento.value || empresa.direccion == elemento.value) && !empresa.eliminado);
+    filtro = empresas.filter(empresa => (empresa._id == elemento.value || empresa.nombre == elemento.value || empresa.descripcion == elemento.value || empresa.telefono == elemento.value || empresa.correo == elemento.value || empresa.direccion == elemento.value));
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
@@ -529,7 +395,7 @@ function buscarEmpresa(elemento) {
         filtro.forEach(empresa => {
             cuerpo.innerHTML +=
                 `<tr>
-                <th scope="row">${empresa.codigo}</th>
+                <th scope="row">${empresa._id}</th>
                 <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
@@ -543,23 +409,30 @@ function buscarEmpresa(elemento) {
 }
 
 function nombreEmpresa(elemento) {
-    let filtro = empresas.filter(empresa => empresa.codigo == elemento.value)[0];
+    let filtro = empresas.filter(empresa => empresa._id == elemento.value)[0];
     document.getElementById('txtempresa-eliminarEmpresa').value = filtro.nombre;
 }
 
 function eliminarEmpresa() {
     let codigo = document.getElementById('selectcodigo-eliminarEmpresa');
-    let filtro = empresas.filter(empresa => empresa.codigo == codigo.value)[0];
+    let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
     if (confirm("¿Está seguro que desea eliminar la empresa?")) {
-        filtro.eliminado = true;
-        vaciarCampos();
-        cargarValores();
+        axios({
+            method: 'DELETE',
+            url: `http://localhost:4200/empresas/${codigo.value}`
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
 //Productos
 function agregarProducto() {
-    let codigo = document.getElementById('txtcodigo-agregarProducto');
     let nombre = document.getElementById('txtnombre-agregarProducto');
     let descripcion = document.getElementById('txtdescripcion-agregarProducto');
     let cantidad = document.getElementById('txtcantidad-agregarProducto');
@@ -570,24 +443,26 @@ function agregarProducto() {
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '' || imagen.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        productos.push({
-            codigo: codigo.value,
+        let p = {
             nombre: nombre.value,
             descripcion: descripcion.value,
             cantidad: cantidad.value,
             precio: precio.value,
             imagen: imagen.value,
             codigoEmpresa: empresa.value
-        });
-        alert('Producto agregado!');
-        nombre.value = '';
-        descripcion.value = '';
-        cantidad.value = '';
-        precio.value = '';
-        imagen.value = '';
-        empresa.value = '';
-        vaciarCampos();
-        cargarValores();
+        };
+        axios({
+            method: 'POST',
+            url: 'http://localhost:4200/productos',
+            data: p,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -600,7 +475,7 @@ function perfilProducto() {
     let empresa = document.getElementById('selectempresa-actualizarProducto');
     let imagen = document.getElementById('fileimagen-actualizarProducto');
 
-    let filtro = productos.filter(producto => producto.codigo == codigo.value)[0];
+    let filtro = productos.filter(producto => producto._id == codigo.value)[0];
 
     nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
@@ -621,18 +496,27 @@ function actualizarProducto() {
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = productos.filter(producto => producto.codigo == codigo.value)[0];
+        let filtro = productos.filter(producto => producto._id == codigo.value)[0];
         filtro.nombre = nombre.value;
         filtro.descripcion = descripcion.value;
         filtro.cantidad = cantidad.value;
         filtro.precio = precio.value;
         filtro.codigoEmpresa = empresa.value;
-        if (imagen != null) {
+        if (imagen.value != '') {
             filtro.imagen = imagen.value;
         }
-        alert('Producto actualizado!');
-        vaciarCampos();
-        cargarValores();
+        axios({
+            method: 'PUT',
+            url: `http://localhost:4200/productos/${codigo.value}`,
+            data: filtro,
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -641,33 +525,31 @@ function llenarTablaProductos() {
     cuerpo.innerHTML = '';
 
     productos.forEach(producto => {
-        if (!producto.eliminado) {
-            let emp = empresas.filter(empresa => empresa.codigo == producto.codigoEmpresa)[0].nombre;
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${producto.codigo}</th>
+        let emp = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
+        cuerpo.innerHTML +=
+            `<tr>
+                <th scope="row">${producto._id}</th>
                 <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
                 <td>${emp}</td>
                 <td>${producto.precio} Lps.</td>
-        </tr>`;
-        }
+            </tr>`;
     });
 }
 
 function buscarProducto(elemento) {
-    filtro = productos.filter(producto => (producto.codigo == elemento.value || producto.nombre == elemento.value || producto.descripcion == elemento.value || producto.cantidad == elemento.value || producto.empresa == elemento.value || producto.precio == elemento.value) && !producto.eliminado);;
+    filtro = productos.filter(producto => (producto._id == elemento.value || producto.nombre == elemento.value || producto.descripcion == elemento.value || producto.cantidad == elemento.value || producto.empresa == elemento.value || producto.precio == elemento.value));
 
     if (filtro.length != 0) {
         let cuerpo = document.getElementById('cuerpo-tablaProductos');
         cuerpo.innerHTML = '';
 
         filtro.forEach(producto => {
-            let prod = empresas.filter(empresa => empresa.codigo == producto.codigoEmpresa)[0].nombre;
+            let prod = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
             cuerpo.innerHTML +=
                 `<tr>
-                <th scope="row">${producto.codigo}</th>
+                <th scope="row">${producto._id}</th>
                 <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
@@ -681,17 +563,25 @@ function buscarProducto(elemento) {
 }
 
 function nombreProducto(elemento) {
-    let filtro = productos.filter(producto => producto.codigo == elemento.value)[0];
+    let filtro = productos.filter(producto => producto._id == elemento.value)[0];
     document.getElementById('txtproducto-eliminarProducto').value = filtro.nombre;
 }
 
 function eliminarProducto() {
     let codigo = document.getElementById('selectcodigo-eliminarProducto');
-    let filtro = productos.filter(producto => producto.codigo == codigo.value)[0];
+    let filtro = productos.filter(producto => producto._id == codigo.value)[0];
     if (confirm("¿Está seguro que desea eliminar el producto?")) {
-        filtro.eliminado = true;
-        vaciarCampos();
-        cargarValores();
+        axios({
+            method: 'DELETE',
+            url: `http://localhost:4200/productos/${codigo.value}`
+        })
+            .then(res => {
+                alert(res.data.mensaje);
+                cargarValores();
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
     }
 }
 
@@ -700,43 +590,85 @@ function generarOrdenes() {
     let contenidoOrdenes = document.getElementById('contenido-ordenes');
     contenidoOrdenes.classList.remove('borde-naranja');
     contenidoOrdenes.innerHTML = '';
-    ordenes.forEach(elem => {
-        contenidoOrdenes.innerHTML +=
-            `<div class="col-12 py-1">
-            <div class="contenedorOrden row borde-azul p-1 radius">
-                <h4 class="col-4 text-center pt-2">${elem.nombre}</h4>
-                <button class="boton boton-verde col-4" onclick="abrirModal('${elem.codigo}');">Asignar</button>
-                <button class="boton boton-naranja col-4" onclick="verOrden('${elem.codigo}');">Ver orden</button>
-            </div>
-        </div>`;
-    });
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/ordenes/disponibles'
+    })
+        .then(res => {
+            ordenes = res.data;
+            console.log('ordenes', ordenes);
+            ordenes.forEach(elem => {
+                contenidoOrdenes.innerHTML +=
+                    `<div class="col-12 py-1">
+                    <div class="contenedorOrden row borde-azul p-1 radius">
+                        <h4 class="col-4 text-center pt-2">${elem.nombre}</h4>
+                        <button class="boton boton-verde col-4" onclick="abrirModal('${elem._id}');">Asignar</button>
+                        <button class="boton boton-naranja col-4" onclick="verOrden('${elem._id}');">Ver orden</button>
+                    </div>
+                </div>`;
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function abrirModal(codigo) {
     let selectMotoristas = document.getElementById('selectmotorista');
     selectMotoristas.innerHTML = '';
-    usuarios.forEach(usuario => {
-        if (usuario.tipo == 'B' && usuario.aprobado == true) { 
-            selectMotoristas.innerHTML +=
-            `<option value="${usuario.codigo}">${usuario.nombre}</option>`;
-        }
-    });
-    orden = ordenes.filter(elem => elem.codigo == codigo)[0];
-    $('#modal').modal('show');
+    axios({
+        method: 'GET',
+        url: 'http://localhost:4200/usuarios/motoristas'
+    })
+        .then(res => {
+            usuarios = res.data;
+            usuarios.forEach(usuario => {
+                if (usuario.aprobado == true) {
+                    selectMotoristas.innerHTML +=
+                        `<option value="${usuario._id}">${usuario.nombre}</option>`;
+                }
+            });
+            orden = ordenes.filter(elem => elem._id == codigo)[0];
+            $('#modal').modal('show');
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function asignarMotorista() {
     let codigo = document.getElementById('selectmotorista');
-    let filtro = usuarios.filter(usuario => usuario.codigo == codigo.value)[0];
-    filtro.ordenesTomadas.push(orden);
-    ordenes = ordenes.filter(o => o.codigo != orden.codigo);
-    generarOrdenes();
+    let filtro = usuarios.filter(usuario => usuario._id == codigo.value)[0];
+    axios({
+        method: 'PUT',
+        url: `http://localhost:4200/usuarios/motoristas/asignarOrden/${codigo.value}`,
+        data: orden
+    })
+        .then(res => {
+            alert(res.data.mensaje);
+            axios({
+                method: 'PUT',
+                url: `http://localhost:4200/ordenes/${orden._id}`,
+                data: {nombre: filtro.nombre}
+            })
+                .then(res => {
+                    console.log('síííí');
+                    generarOrdenes();
+                })
+                .catch(error => {
+                    console.log('Error', error);
+                });
+        })
+        .catch(error => {
+            console.log('Error', error);
+        });
     $('#modal').modal('hide');
 }
 
 function verOrden(codigo) {
     let contenidoOrdenes = document.getElementById('contenido-ordenes');
-    orden = ordenes.filter(o => o.codigo == codigo)[0];
+    orden = ordenes.filter(o => o._id == codigo)[0];
     let entrega = '';
     orden.envio.productos.forEach(producto => {
         entrega += producto.nombre + '; ';
@@ -744,7 +676,7 @@ function verOrden(codigo) {
     contenidoOrdenes.classList.add('borde-naranja');
     contenidoOrdenes.innerHTML =
         `<div class="titulo-detalleOrden borde-naranja radius px-1">
-        Detalle de la orden: "${orden.orden}"
+        Detalle de la orden: "${orden.nombre}"
     </div>
     <div class="informacion-cliente borde-naranja radius p-2">
         <div class="titulo-infoCliente borde-naranja radius px-1">
@@ -808,10 +740,10 @@ function generarMotoristas() {
                     <h4 class="col-lg-10 col-md-9 col-sm-8 col-xs-6 text-left pt-2">${motorista.nombre}</h4>
                     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 acomodar">
                         <div class="text-left mx-2">
-                            <i class="fa-solid fa-circle-check check botonesMotorista" onclick="aprobarMotorista('${motorista.codigo}');"></i>
+                            <i class="fa-solid fa-circle-check check botonesMotorista" onclick="aprobarMotorista('${motorista._id}');"></i>
                         </div>
                         <div class="text-right mx-2">
-                            <i class="fa-solid fa-circle-xmark error botonesMotorista" onclick="rechazarMotorista('${motorista.codigo}');"></i>
+                            <i class="fa-solid fa-circle-xmark error botonesMotorista" onclick="rechazarMotorista('${motorista._id}');"></i>
                         </div>
                     </div>
                 </div>
@@ -821,13 +753,13 @@ function generarMotoristas() {
 }
 
 function aprobarMotorista(codigo) {
-    let filtro = usuarios.filter(motorista => motorista.codigo == codigo)[0];
+    let filtro = usuarios.filter(motorista => motorista._id == codigo)[0];
     filtro.aprobado = true;
     generarMotoristas();
 }
 
 function rechazarMotorista(codigo) {
-    let filtro = usuarios.filter(motorista => motorista.codigo == codigo)[0];
+    let filtro = usuarios.filter(motorista => motorista._id == codigo)[0];
     filtro.aprobado = false;
     generarMotoristas();
 }
@@ -851,7 +783,7 @@ function listarEmpresasCategoria(elemento) {
         filtro.forEach(empresa => {
             cuerpo.innerHTML +=
                 `<tr>
-                <th scope="row">${empresa.codigo}</th>
+                <th scope="row">${empresa._id}</th>
                 <td>${empresa.nombre}</td>
                 <td>${empresa.descripcion}</td>
                 <td>${empresa.direccion}</td>
