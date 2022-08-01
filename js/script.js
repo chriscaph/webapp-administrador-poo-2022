@@ -618,7 +618,7 @@ function generarOrdenes() {
                     <div class="contenedorOrden row borde-azul p-1 radius">
                         <h4 class="col-4 text-center pt-2">${elem.nombre}</h4>
                         <button class="boton boton-verde col-4" onclick="abrirModal('${elem._id}');">Asignar</button>
-                        <button class="boton boton-naranja col-4" onclick="verOrden('${elem._id}');">Ver orden</button>
+                        <button class="boton boton-naranja col-4" onclick="verOrden('${elem._id}'); cargarMapa(${elem.envio.coordenadas.longitud}, ${elem.envio.coordenadas.latitud});">Ver orden</button>
                     </div>
                 </div>`;
             });
@@ -675,7 +675,7 @@ function verOrden(codigo) {
     orden = ordenes.filter(o => o._id == codigo)[0];
     let entrega = '';
     orden.envio.productos.forEach(producto => {
-        entrega += producto.nombre + '; ';
+        entrega += producto.cantidad + ' ' + producto.nombre + '; ';
     });
     contenidoOrdenes.classList.add('borde-naranja');
     contenidoOrdenes.innerHTML =
@@ -687,11 +687,11 @@ function verOrden(codigo) {
             Información del cliente
         </div>
         <div class="row mt-2">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <h6>Nombre:</h6>
                 <h6 class="gris pl-5 pb-2">${orden.cliente.nombre}</h6>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <h6>Correo:</h6>
                 <h6 class="gris pl-5 pb-2">${orden.cliente.correo}</h5>
             </div>
@@ -706,7 +706,7 @@ function verOrden(codigo) {
             Información del envío
         </div>
         <div class="row mt-2">
-            <div class="col-6 row">
+            <div class="col-12 col-md-6 row">
                 <div class="col-12">
                     <h6>Productos:</h6>
                     <h6 class="gris pl-5 pb-2">${entrega}</h6>
@@ -720,10 +720,10 @@ function verOrden(codigo) {
                     <h6 class="gris pl-5 pb-2">${orden.envio.total} Lps.</h6>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <h6>Dirección:</h6>
                 <h6 class="gris pl-5 pb-2">${orden.envio.direccion}</h6>
-                <img src="img/${orden.envio.mapa}" class="pl-5" alt="mapa">
+                <div id="mapa" style="width: 100%; height: 200px;" class="borde-verde"></div>
             </div>
         </div>
     </div>

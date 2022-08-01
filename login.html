@@ -25,23 +25,33 @@
 
     <title>Guacamaya Express - Login Administrador</title>
 </head>
+
 <body>
     <img id="logo" src="img/logo.svg" alt="Logo">
     <div class="container-fluid">
         <section class="sections-login borde-azul" id="section-login">
-            <img class="imagen-login" src="img/administrador-rojo.svg" alt="icono-administrador">
-            <h3 class="titulo-login">¡Ingresa!</h3>
-            <h6 class="subtitulo-login">¡Inicia sesión en tu cuenta!</h6>
-            <div class="contenedor-formulario">
-                <input class="text-login form-control borde-azul" type="text" id="txtusuario-login" placeholder="Usuario" required>
-                <input class="text-login form-control borde-azul" type="password" id="txtpassword-login" placeholder="Contraseña" required>
-            </div>
-            <div class="contenedor-botones">
-                <button class="boton boton-naranja" onclick="validarFormulario();">Iniciar sesión</button>
-            </div>
+            <form action="http://localhost:4200/usuarios/login/A" method="post">
+
+                <img class="imagen-login" src="img/administrador-rojo.svg" alt="icono-administrador">
+                <h3 class="titulo-login">¡Ingresa!</h3>
+                <h6 class="subtitulo-login">¡Inicia sesión en tu cuenta!</h6>
+                <div class="contenedor-formulario">
+                    <input class="text-login form-control borde-azul" type="text" id="txtusuario-login"
+                        placeholder="Usuario" name="usuarioLogin" required>
+                    <input class="text-login form-control borde-azul" type="password" id="txtpassword-login"
+                        placeholder="Contraseña" name="passwordLogin" required>
+
+                </div>
+                <div class="contenedor-botones">
+
+                    <button type="submit" class="boton boton-naranja">Iniciar sesión</button>
+
+                </div>
+
+            </form>
         </section>
     </div>
-    
+
     <footer>
         <div id="redes-footer">
             <i class="fa-brands fa-facebook-f"></i>
@@ -53,12 +63,11 @@
         <p id="copyright">Guacamaya Express | Todos los derechos reservados | © 2022</p>
     </footer>
 
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content borde-rojo">
                 <div id="modal-body-sesion" class="modal-body">
-                    
+
                 </div>
             </div>
         </div>
