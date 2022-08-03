@@ -177,6 +177,8 @@ h4 {
     margin: auto;
     border-radius: 10px;
     display: none;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 footer {

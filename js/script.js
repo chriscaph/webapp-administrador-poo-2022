@@ -16,9 +16,6 @@ function generarArregloUsuarios() {
         .then(res => {
             usuarios = res.data;
             generarMotoristas();
-        })
-        .catch(error => {
-            console.log(error);
         });
 }
 
@@ -71,9 +68,9 @@ function cargarValores() {
     let categoriaActualizarEmpresa = document.getElementById('selectcategoria-actualizarEmpresa');
     let empresaActualizarProducto = document.getElementById('selectempresa-actualizarProducto');
 
-    codigoActualizarCategoria.innerHTML = '';
-    codigoActualizarEmpresa.innerHTML = '';
-    codigoActualizarProducto.innerHTML = '';
+    codigoActualizarCategoria.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    codigoActualizarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    codigoActualizarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
 
     let codigoEliminarCategoria = document.getElementById('selectcodigo-eliminarCategoria');
     let codigoEliminarEmpresa = document.getElementById('selectcodigo-eliminarEmpresa');
@@ -81,14 +78,14 @@ function cargarValores() {
 
     let categoriaMostrarEmpresa = document.getElementById('selectcategoria-verEmpresa');
 
-    codigoEliminarCategoria.innerHTML = '';
-    codigoEliminarEmpresa.innerHTML = '';
-    codigoEliminarProducto.innerHTML = '';
-    categoriaAgregarEmpresa.innerHTML = '';
-    empresaAgregarProducto.innerHTML = '';
-    categoriaActualizarEmpresa.innerHTML = '';
-    empresaActualizarProducto.innerHTML = '';
-    categoriaMostrarEmpresa.innerHTML = '';
+    codigoEliminarCategoria.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    codigoEliminarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    codigoEliminarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    categoriaAgregarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    empresaAgregarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    categoriaActualizarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    empresaActualizarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    categoriaMostrarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
 
 
     axios({
@@ -98,15 +95,12 @@ function cargarValores() {
         .then(res => {
             categorias = res.data;
             categorias.forEach(categoria => {
-                codigoActualizarCategoria.innerHTML += `<option value="${categoria._id}">${categoria._id}</option>`;
+                codigoActualizarCategoria.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
                 codigoEliminarCategoria.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
                 categoriaAgregarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
                 categoriaActualizarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
                 categoriaMostrarEmpresa.innerHTML += `<option value="${categoria._id}">${categoria._id} - ${categoria.nombre}</option>`;
             });
-        })
-        .catch(error => {
-            console.log(error);
         });
 
     axios({
@@ -115,16 +109,12 @@ function cargarValores() {
     })
         .then(res => {
             empresas = res.data;
-            console.log('empresas', empresas);
             empresas.forEach(empresa => {
-                codigoActualizarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id}</option>`;
+                codigoActualizarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
                 codigoEliminarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
                 empresaActualizarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
                 empresaAgregarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
             });
-        })
-        .catch(error => {
-            console.log(error);
         });
 
     axios({
@@ -133,15 +123,19 @@ function cargarValores() {
     })
         .then(res => {
             productos = res.data;
-            console.log('productos', productos);
             productos.forEach(producto => {
-                codigoActualizarProducto.innerHTML += `<option value="${producto._id}">${producto._id}</option>`;
+                codigoActualizarProducto.innerHTML += `<option value="${producto._id}">${producto._id} - ${producto.nombre}</option>`;
                 codigoEliminarProducto.innerHTML += `<option value="${producto._id}">${producto._id} - ${producto.nombre}</option>`;
             });
-        })
-        .catch(error => {
-            console.log(error);
         });
+    let inputs = document.getElementsByTagName('input');
+    Array.from(inputs).forEach(input => input.value = null);
+
+    let selects = document.getElementsByTagName('select');
+    Array.from(selects).forEach(select => select.value = null);
+
+    let textareas = document.getElementsByTagName('textarea');
+    Array.from(textareas).forEach(textarea => textarea.value = null);
 }
 
 
@@ -154,22 +148,19 @@ function agregarCategoria() {
     if (nombre.value == '' || descripcion.value == '' || imagen.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        var c = {
-            nombre: nombre.value,
-            descripcion: descripcion.value,
-            imagen: imagen.value
-        }
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+        formData.append('imagen', imagen.files[0]);
+
         axios({
             method: 'POST',
             url: 'http://localhost:4200/categorias',
-            data: c,
+            data: formData
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -195,23 +186,22 @@ function actualizarCategoria() {
     if (nombre.value == '' || descripcion.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
-        filtro.nombre = nombre.value;
-        filtro.descripcion = descripcion.value;
+
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+
         if (imagen.value != '') {
-            filtro.imagen = imagen.value;
+            formData.append('imagen', imagen.files[0]);
         }
         axios({
             method: 'PUT',
             url: `http://localhost:4200/categorias/${codigo.value}`,
-            data: filtro,
+            data: formData,
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
         cargarValores();
     }
@@ -267,9 +257,6 @@ function eliminarCategoria() {
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -289,28 +276,24 @@ function agregarEmpresa() {
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '' || imagen.value == '' || banner.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        var e = {
-            nombre: nombre.value,
-            descripcion: descripcion.value,
-            direccion: direccion.value,
-            telefono: telefono.value,
-            correo: correo.value,
-            codigoCategoria: categoria.value,
-            calificacion: calificacion.value,
-            logo: imagen.value,
-            banner: banner.value
-        };
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+        formData.append('direccion', direccion.value);
+        formData.append('telefono', telefono.value);
+        formData.append('correo', correo.value);
+        formData.append('codigoCategoria', categoria.value);
+        formData.append('calificacion', calificacion.value);
+        formData.append('banner', banner.files[0]);
+        formData.append('logo', imagen.files[0]);
         axios({
             method: 'POST',
             url: 'http://localhost:4200/empresas',
-            data: e,
+            data: formData,
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -353,31 +336,31 @@ function actualizarEmpresa() {
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
-        filtro.nombre = nombre.value;
-        filtro.descripcion = descripcion.value;
-        filtro.direccion = direccion.value;
-        filtro.telefono = telefono.value;
-        filtro.correo = correo.value;
-        filtro.calificacion = calificacion.value;
-        filtro.codigoCategoria = categoria.value;
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+        formData.append('direccion', direccion.value);
+        formData.append('telefono', telefono.value);
+        formData.append('correo', correo.value);
+        formData.append('codigoCategoria', categoria.value);
+        formData.append('calificacion', calificacion.value);
+
         if (imagen.value != '') {
-            filtro.logo = imagen.value;
+            formData.append('logo', imagen.files[0]);
         }
+
         if (banner.value != '') {
-            filtro.banner = banner.value;
+            formData.append('banner', banner.files[0]);
         }
+        
         axios({
             method: 'PUT',
             url: `http://localhost:4200/empresas/${codigo.value}`,
-            data: filtro,
+            data: formData,
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -438,9 +421,6 @@ function eliminarEmpresa() {
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -457,25 +437,21 @@ function agregarProducto() {
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '' || imagen.value == '') {
         alert('Por favor, rellene todos los campos.');
     } else {
-        let p = {
-            nombre: nombre.value,
-            descripcion: descripcion.value,
-            cantidad: cantidad.value,
-            precio: precio.value,
-            imagen: imagen.value,
-            codigoEmpresa: empresa.value
-        };
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+        formData.append('cantidad', cantidad.value);
+        formData.append('precio', precio.value);
+        formData.append('imagen', imagen.files[0]);
+        formData.append('codigoEmpresa', empresa.value);
         axios({
             method: 'POST',
             url: 'http://localhost:4200/productos',
-            data: p,
+            data: formData,
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
-            })
-            .catch(error => {
-                console.log('error', error);
             });
     }
 }
@@ -510,27 +486,26 @@ function actualizarProducto() {
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '') {
         alert('Por favor, rellene todos los campos de tipo texto.');
     } else {
-        let filtro = productos.filter(producto => producto._id == codigo.value)[0];
-        filtro.nombre = nombre.value;
-        filtro.descripcion = descripcion.value;
-        filtro.cantidad = cantidad.value;
-        filtro.precio = precio.value;
-        filtro.codigoEmpresa = empresa.value;
+        let formData = new FormData();
+        formData.append('nombre', nombre.value);
+        formData.append('descripcion', descripcion.value);
+        formData.append('cantidad', cantidad.value);
+        formData.append('precio', precio.value);
+        formData.append('codigoEmpresa', empresa.value);
+
         if (imagen.value != '') {
-            filtro.imagen = imagen.value;
+            formData.append('imagen', imagen.files[0]);
         }
+
         axios({
             method: 'PUT',
             url: `http://localhost:4200/productos/${codigo.value}`,
-            data: filtro,
+            data: formData,
         })
             .then(res => {
                 alert(res.data.mensaje);
                 cargarValores();
             })
-            .catch(error => {
-                console.log('error', error);
-            });
     }
 }
 
@@ -539,7 +514,10 @@ function llenarTablaProductos() {
     cuerpo.innerHTML = '';
 
     productos.forEach(producto => {
-        let emp = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
+        let emp = '';
+        if (empresas.length != 0) {
+            let emp = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
+        }
         cuerpo.innerHTML +=
             `<tr>
                 <th scope="row">${producto._id}</th>
@@ -593,9 +571,6 @@ function eliminarProducto() {
                 alert(res.data.mensaje);
                 cargarValores();
             })
-            .catch(error => {
-                console.log('error', error);
-            });
     }
 }
 
@@ -611,20 +586,16 @@ function generarOrdenes() {
     })
         .then(res => {
             ordenes = res.data;
-            console.log('ordenes', ordenes);
             ordenes.forEach(elem => {
                 contenidoOrdenes.innerHTML +=
                     `<div class="col-12 py-1">
                     <div class="contenedorOrden row borde-azul p-1 radius">
-                        <h4 class="col-4 text-center pt-2">${elem.nombre}</h4>
-                        <button class="boton boton-verde col-4" onclick="abrirModal('${elem._id}');">Asignar</button>
-                        <button class="boton boton-naranja col-4" onclick="verOrden('${elem._id}'); cargarMapa(${elem.envio.coordenadas.longitud}, ${elem.envio.coordenadas.latitud});">Ver orden</button>
+                        <h4 class="col-12 col-sm-4 text-center pt-2">${elem.nombre}</h4>
+                        <button class="boton boton-verde col-sm-4 col-12" onclick="abrirModal('${elem._id}');">Asignar</button>
+                        <button class="boton boton-naranja col-sm-4 col-12" onclick="verOrden('${elem._id}'); cargarMapa(${elem.envio.coordenadas.longitud}, ${elem.envio.coordenadas.latitud});">Ver orden</button>
                     </div>
                 </div>`;
             });
-        })
-        .catch(error => {
-            console.log(error);
         });
 }
 
@@ -643,29 +614,13 @@ function abrirModal(codigo) {
 
 function asignarMotorista() {
     let codigo = document.getElementById('selectmotorista');
-    let filtro = usuarios.filter(usuario => usuario._id == codigo.value)[0];
     axios({
         method: 'PUT',
-        url: `http://localhost:4200/usuarios/motoristas/asignarOrden/${codigo.value}`,
-        data: orden
+        url: `http://localhost:4200/ordenes/${orden._id}`,
+        data: {_id: codigo.value}
     })
         .then(res => {
-            alert(res.data.mensaje);
-            axios({
-                method: 'PUT',
-                url: `http://localhost:4200/ordenes/${orden._id}`,
-                data: {nombre: filtro.nombre}
-            })
-                .then(res => {
-                    console.log('síííí');
-                    generarOrdenes();
-                })
-                .catch(error => {
-                    console.log('Error', error);
-                });
-        })
-        .catch(error => {
-            console.log('Error', error);
+            generarOrdenes();
         });
     $('#modal').modal('hide');
 }
@@ -736,7 +691,6 @@ function verOrden(codigo) {
 function generarMotoristas() {
     let contenedorMotoristas = document.getElementById('contenedorMotoristas');
     contenedorMotoristas.innerHTML = '';
-    console.log('los motoristas', usuarios);
     usuarios.forEach(motorista => {
         if (motorista.aprobado == null) {
             contenedorMotoristas.innerHTML +=
@@ -759,29 +713,15 @@ function generarMotoristas() {
 
 function aprobarMotorista(codigo, val) {
     let dato = {aprobado: val};
-    console.log(codigo);
     axios({
         method: 'PUT',
         url: `http://localhost:4200/usuarios/motoristas/${codigo}`,
         data: dato,
     })
         .then(res => {
-            console.log(res);
             generarArregloUsuarios();
             cargarValores();
-        })
-        .catch(error => {
-            console.log('error', error);
         });
-}
-
-function vaciarCampos() {
-    let inputs = document.getElementsByTagName('input');
-    Array.from(inputs).forEach(input => input.value = '');
-    let selects = document.getElementsByTagName('select');
-    Array.from(selects).forEach(select => select.value = '');
-    let textareas = document.getElementsByTagName('textarea');
-    Array.from(textareas).forEach(textarea => textarea.value = '');
 }
 
 function listarEmpresasCategoria(elemento) {
