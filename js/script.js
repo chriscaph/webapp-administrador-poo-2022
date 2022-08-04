@@ -4,6 +4,32 @@ var productos = [];
 var ordenes = [];
 var usuarios = [];
 
+var nombreAdmin = obtenerParametro('nom');
+var idSession = obtenerParametro('ses');
+
+if (idSession.length == 0) {
+    idSession = '1';
+}
+
+function verificarSesion() {
+    axios({
+        method: 'get',
+        url: `http://localhost:4200/sesiones/${idSession}`,
+    })
+        .then(res => {
+            console.log(res.data);
+            if (res.data.codigo == 0) {
+                window.open(`login.html`, '_self');
+            } else {
+                generarArregloUsuarios();
+                cargarValores();
+            }
+        })
+        .catch(error => console.log('error de la verificación', error));
+}
+
+verificarSesion();
+
 var sections = document.getElementsByClassName('sections');
 var sectionPrincipal = document.getElementById('section-principal');
 var controles = document.getElementsByClassName('control');
@@ -747,5 +773,13 @@ function listarEmpresasCategoria(elemento) {
     }
 }
 
-generarArregloUsuarios();
-cargarValores();
+function obtenerParametro(valor){
+    valor = valor.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    let expresionRegular = "[\\?&]" + valor + "=([^&#]*)";
+    let regex = new RegExp(expresionRegular);
+    let r = regex.exec( window.location.href );
+    if( r == null )
+        return "";
+    else
+        return decodeURIComponent(r[1].replace(/\ + /g, " "));
+}
