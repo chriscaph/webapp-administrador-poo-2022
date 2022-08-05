@@ -167,6 +167,19 @@ h4 {
     margin: 100px auto;
 }
 
+.cerrar-sesion {
+    font-size: 20px;
+    padding-top: 2px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+}
+
+.cerrar-sesion:hover {
+    text-decoration: none;
+}
+
 
 .sections {
     position: absolute;
