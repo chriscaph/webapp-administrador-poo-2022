@@ -112,10 +112,13 @@
                 </div>
                 <div class="col-12 pt-3">
                     Imagen:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarCategoria" required>
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarCategoria" required onchange="renderImage(this);">
                 </div>
                 <div class="col-12 pt-4">
                     <button class="boton boton-verde float-right" id="button-agregarCategoria" onclick="agregarCategoria();">Agregar</button>
+                </div>
+                <div class="col-12 pt-4">
+                    <img src="" id="fileimagen-agregarCategoria-2" class="vistaPrevia borde-azul">
                 </div>
             </div>
         </section>
@@ -137,10 +140,13 @@
                 </div>
                 <div class="col-12 pt-3">
                     Imagen:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarCategoria">
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarCategoria" onchange="renderImage(this);">
                 </div>
                 <div class="col-12 pt-4">
                     <button class="boton boton-naranja float-right" id="button-actualizarCategoria" onclick="actualizarCategoria();">Actualizar</button>
+                </div>
+                <div class="col-12 pt-4">
+                    <img src="" id="fileimagen-actualizarCategoria-2" class="vistaPrevia borde-azul">
                 </div>
             </div>
         </section>
@@ -239,15 +245,21 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Logo:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarEmpresa" required>
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarEmpresa" required onchange="renderImage(this);">
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Banner:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="filebanner-agregarEmpresa" required>
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="filebanner-agregarEmpresa" required onchange="renderImage(this);">
                 </div>
                 <div class="col-10"></div>
                 <div class="col-2 pt-4">
                     <button class="boton boton-verde float-right" id="button-agregarEmpresa" onclick="agregarEmpresa();">Agregar</button>
+                </div>
+                <div class="col-6 pt-4">
+                    <img src="" id="fileimagen-agregarEmpresa-2" class="vistaPrevia borde-azul">
+                </div>
+                <div class="col-6 pt-4">
+                    <img src="" id="filebanner-agregarEmpresa-2" class="vistaPrevia-banner borde-azul">
                 </div>
             </div>
         </section>
@@ -304,15 +316,21 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Logo:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarEmpresa">
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarEmpresa" onchange="renderImage(this);">
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Banner:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="filebanner-actualizarEmpresa">
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="filebanner-actualizarEmpresa" onchange="renderImage(this);">
                 </div>
                 <div class="col-10"></div>
                 <div class="col-2 pt-4">
                     <button class="boton boton-naranja float-right" id="button-actualizarEmpresa" onclick="actualizarEmpresa();">Actualizar</button>
+                </div>
+                <div class="col-6 pt-4">
+                    <img src="" id="fileimagen-actualizarEmpresa-2" class="vistaPrevia borde-azul">
+                </div>
+                <div class="col-6 pt-4">
+                    <img src="" id="filebanner-actualizarEmpresa-2" class="vistaPrevia-banner borde-azul">
                 </div>
             </div>
         </section>
@@ -394,11 +412,14 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Imagen:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarProducto" required>
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-agregarProducto" required onchange="renderImage(this);">
                 </div>
                 <div class="col-10"></div>
                 <div class="col-2 pt-4">
                     <button class="boton boton-verde float-right" id="button-agregarProducto" onclick="agregarProducto();">Agregar</button>
+                </div>
+                <div class="col-12 pt-4">
+                    <img src="" id="fileimagen-agregarProducto-2" class="vistaPrevia borde-azul">
                 </div>
             </div>
         </section>
@@ -434,11 +455,14 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Imagen:
-                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarProducto">
+                    <input type="file" accept='image/*' class="form-control borde-azul" id="fileimagen-actualizarProducto" onchange="renderImage(this);">
                 </div>
                 <div class="col-10"></div>
                 <div class="col-2 pt-4">
                     <button class="boton boton-naranja float-right" id="button-actualizarProducto" onclick="actualizarProducto();">Actualizar</button>
+                </div>
+                <div class="col-12 pt-4">
+                    <img src="" id="fileimagen-actualizarProducto-2" class="vistaPrevia borde-azul">
                 </div>
             </div>
         </section>

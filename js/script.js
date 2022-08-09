@@ -165,6 +165,12 @@ function cargarValores() {
 
     let textareas = document.getElementsByTagName('textarea');
     Array.from(textareas).forEach(textarea => textarea.value = null);
+
+    let imgs = document.getElementsByClassName('vistaPrevia');
+    Array.from(imgs).forEach(img => img.src = '');
+
+    imgs = document.getElementsByClassName('vistaPrevia-banner');
+    Array.from(imgs).forEach(img => img.src = '');
 }
 
 
@@ -214,12 +220,13 @@ function perfilCategoria() {
     let codigo = document.getElementById('selectcodigo-actualizarCategoria');
     let nombre = document.getElementById('txtnombre-actualizarCategoria');
     let descripcion = document.getElementById('txtdescripcion-actualizarCategoria');
-    let imagen = document.getElementById('fileimagen-actualizarCategoria');
+    let imagen = document.getElementById('fileimagen-actualizarCategoria-2');
 
     let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
 
     nombre.value = filtro.nombre;
     descripcion.value = filtro.descripcion;
+    imagen.src = filtro.imagen;
 }
 
 function actualizarCategoria() {
@@ -407,8 +414,8 @@ function perfilEmpresa() {
     let correo = document.getElementById('txtcorreo-actualizarEmpresa');
     let categoria = document.getElementById('selectcategoria-actualizarEmpresa');
     let calificacion = document.getElementById('selectcalificacion-actualizarEmpresa');
-    let imagen = document.getElementById('fileimagen-actualizarEmpresa');
-    let banner = document.getElementById('filebanner-actualizarEmpresa');
+    let imagen = document.getElementById('fileimagen-actualizarEmpresa-2');
+    let banner = document.getElementById('filebanner-actualizarEmpresa-2');
 
     let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
 
@@ -419,6 +426,8 @@ function perfilEmpresa() {
     correo.value = filtro.correo;
     categoria.value = filtro.codigoCategoria;
     calificacion.value = filtro.calificacion;
+    imagen.src = filtro.logo;
+    banner.src = filtro.banner;
 }
 
 function actualizarEmpresa() {
@@ -618,7 +627,7 @@ function perfilProducto() {
     let cantidad = document.getElementById('txtcantidad-actualizarProducto');
     let precio = document.getElementById('txtprecio-actualizarProducto');
     let empresa = document.getElementById('selectempresa-actualizarProducto');
-    let imagen = document.getElementById('fileimagen-actualizarProducto');
+    let imagen = document.getElementById('fileimagen-actualizarProducto-2');
 
     let filtro = productos.filter(producto => producto._id == codigo.value)[0];
 
@@ -627,6 +636,7 @@ function perfilProducto() {
     cantidad.value = filtro.cantidad;
     precio.value = filtro.precio;
     empresa.value = filtro.codigoEmpresa;
+    imagen.src = filtro.imagen
 }
 
 function actualizarProducto() {
@@ -987,4 +997,9 @@ function cerrarSesion() {
         method: 'get',
         url: `http://localhost:4200/sesiones/cerrar/${idSession}`
     })
+}
+
+function renderImage(elemento) {
+    let imagen = document.getElementById(`${elemento.id}-2`);
+    imagen.setAttribute('src', URL.createObjectURL(elemento.files[0]));
 }
