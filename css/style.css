@@ -130,8 +130,22 @@ h4 {
     color: #555;
 }
 
+.modal-body {
+    text-align: center;
+}
+
 .titulo-modal {
     font-weight: bold;
+}
+
+.subtitulo-modal, .parrafo-modal {
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+}
+
+.subtitulo-modal {
+    font-size: 17px;
 }
 
 .check {
@@ -142,6 +156,11 @@ h4 {
 .error {
     font-size: 50px;
     color: #BD2024;
+}
+
+.advertencia {
+    font-size: 50px;
+    color: #FDE74C;
 }
 
 #section-principal {

@@ -47,6 +47,10 @@
     border: 2px solid #9BC53D;
 }
 
+.borde-amarillo {
+    border: 2px solid #FDE74C;
+}
+
 .borde-top {
     border-top: 2px solid #5BC0EB !important;
 }

@@ -33,6 +33,7 @@ verificarSesion();
 var sections = document.getElementsByClassName('sections');
 var sectionPrincipal = document.getElementById('section-principal');
 var controles = document.getElementsByClassName('control');
+var modalBodyAdministrador2 = document.getElementById('modal-body-administrador2');
 
 function generarArregloUsuarios() {
     axios({
@@ -103,6 +104,7 @@ function cargarValores() {
     let codigoEliminarProducto = document.getElementById('selectcodigo-eliminarProducto');
 
     let categoriaMostrarEmpresa = document.getElementById('selectcategoria-verEmpresa');
+    let empresaMostrarProducto = document.getElementById('selectempresa-verProducto');
 
     codigoEliminarCategoria.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
     codigoEliminarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
@@ -112,7 +114,7 @@ function cargarValores() {
     categoriaActualizarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
     empresaActualizarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
     categoriaMostrarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
-
+    empresaMostrarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
 
     axios({
         method: 'GET',
@@ -140,6 +142,7 @@ function cargarValores() {
                 codigoEliminarEmpresa.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
                 empresaActualizarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
                 empresaAgregarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
+                empresaMostrarProducto.innerHTML += `<option value="${empresa._id}">${empresa._id} - ${empresa.nombre}</option>`;
             });
         });
 
@@ -172,7 +175,14 @@ function agregarCategoria() {
     let imagen = document.getElementById('fileimagen-agregarCategoria');
 
     if (nombre.value == '' || descripcion.value == '' || imagen.value == '') {
-        alert('Por favor, rellene todos los campos.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
         let formData = new FormData();
         formData.append('nombre', nombre.value);
@@ -185,7 +195,16 @@ function agregarCategoria() {
             data: formData
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             });
     }
@@ -210,7 +229,14 @@ function actualizarCategoria() {
     let imagen = document.getElementById('fileimagen-actualizarCategoria');
 
     if (nombre.value == '' || descripcion.value == '') {
-        alert('Por favor, rellene todos los campos de tipo texto.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
 
         let formData = new FormData();
@@ -226,7 +252,16 @@ function actualizarCategoria() {
             data: formData,
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             });
         cargarValores();
@@ -274,17 +309,40 @@ function nombreCategoria(elemento) {
 
 function eliminarCategoria() {
     let codigo = document.getElementById('selectcodigo-eliminarCategoria');
-    let filtro = categorias.filter(categoria => categoria._id == codigo.value)[0];
-    if (confirm("¿Está seguro que desea eliminar la categoría?")) {
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:4200/categorias/${codigo.value}`
-        })
-            .then(res => {
-                alert(res.data.mensaje);
-                cargarValores();
-            });
+    modalBodyAdministrador2.parentNode.classList.add('borde-amarillo');
+    modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+    modalBodyAdministrador2.innerHTML =
+        `<h5 class="titulo-modal my-4">¿Está seguro que desea eliminar la categoría?</h5>
+        <div class="advertencia my-3">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h6 class="subtitulo-modal">Se eliminarán todas las empresas asociadas.</h6>
+        <div class="botones-modal mt-4 mb-3">
+            <button class="boton boton-blanco borde-rojo" onclick="cerrarModal2();">Cerrar</button>
+            <button class="boton boton-blanco borde-verde" onclick="eliminarCat('${codigo.value}');">Aceptar</button>
+        </div>`;
+    if (codigo.value != '') {
+        abrirModal2(); 
     }
+}
+
+function eliminarCat(codigo) {
+    axios({
+        method: 'DELETE',
+        url: `http://localhost:4200/categorias/${codigo}`
+    })
+        .then(res => {
+            modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-amarillo');
+            modalBodyAdministrador2.innerHTML =
+                `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                <div class="check my-3">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+            cargarValores();
+        });
 }
 
 //empresas
@@ -300,7 +358,14 @@ function agregarEmpresa() {
     let banner = document.getElementById('filebanner-agregarEmpresa');
 
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '' || imagen.value == '' || banner.value == '') {
-        alert('Por favor, rellene todos los campos.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
         let formData = new FormData();
         formData.append('nombre', nombre.value);
@@ -318,7 +383,16 @@ function agregarEmpresa() {
             data: formData,
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             });
     }
@@ -360,7 +434,14 @@ function actualizarEmpresa() {
     let banner = document.getElementById('filebanner-actualizarEmpresa');
 
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '') {
-        alert('Por favor, rellene todos los campos de tipo texto.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
         let formData = new FormData();
         formData.append('nombre', nombre.value);
@@ -385,7 +466,16 @@ function actualizarEmpresa() {
             data: formData,
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             });
     }
@@ -438,17 +528,40 @@ function nombreEmpresa(elemento) {
 
 function eliminarEmpresa() {
     let codigo = document.getElementById('selectcodigo-eliminarEmpresa');
-    let filtro = empresas.filter(empresa => empresa._id == codigo.value)[0];
-    if (confirm("¿Está seguro que desea eliminar la empresa?")) {
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:4200/empresas/${codigo.value}`
-        })
-            .then(res => {
-                alert(res.data.mensaje);
-                cargarValores();
-            });
+    modalBodyAdministrador2.parentNode.classList.add('borde-amarillo');
+    modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+    modalBodyAdministrador2.innerHTML =
+        `<h5 class="titulo-modal my-4">¿Está seguro que desea eliminar la empresa?</h5>
+        <div class="advertencia my-3">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h6 class="subtitulo-modal">Se eliminarán todos los productos asociados.</h6>
+        <div class="botones-modal mt-4 mb-3">
+            <button class="boton boton-blanco borde-rojo" onclick="cerrarModal2();">Cerrar</button>
+            <button class="boton boton-blanco borde-verde" onclick="eliminarEmp('${codigo.value}');">Aceptar</button>
+        </div>`;
+    if (codigo.value != '') {
+        abrirModal2(); 
     }
+}
+
+function eliminarEmp(codigo) {
+    axios({
+        method: 'DELETE',
+        url: `http://localhost:4200/empresas/${codigo}`
+    })
+        .then(res => {
+            modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-amarillo');
+            modalBodyAdministrador2.innerHTML =
+                `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                <div class="check my-3">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+            cargarValores();
+        });
 }
 
 //Productos
@@ -461,7 +574,14 @@ function agregarProducto() {
     let imagen = document.getElementById('fileimagen-agregarProducto');
 
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '' || imagen.value == '') {
-        alert('Por favor, rellene todos los campos.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
         let formData = new FormData();
         formData.append('nombre', nombre.value);
@@ -476,7 +596,16 @@ function agregarProducto() {
             data: formData,
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             });
     }
@@ -510,7 +639,14 @@ function actualizarProducto() {
     let imagen = document.getElementById('fileimagen-actualizarProducto');
 
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '') {
-        alert('Por favor, rellene todos los campos de tipo texto.');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
     } else {
         let formData = new FormData();
         formData.append('nombre', nombre.value);
@@ -529,7 +665,16 @@ function actualizarProducto() {
             data: formData,
         })
             .then(res => {
-                alert(res.data.mensaje);
+                modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+                modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+                
+                modalBodyAdministrador2.innerHTML =
+                    `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                    <div class="check my-3">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+                abrirModal2();
                 cargarValores();
             })
     }
@@ -540,17 +685,12 @@ function llenarTablaProductos() {
     cuerpo.innerHTML = '';
 
     productos.forEach(producto => {
-        let emp = '';
-        if (empresas.length != 0) {
-            let emp = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
-        }
         cuerpo.innerHTML +=
             `<tr>
                 <th scope="row">${producto._id}</th>
                 <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
-                <td>${emp}</td>
                 <td>${producto.precio} Lps.</td>
             </tr>`;
     });
@@ -564,14 +704,12 @@ function buscarProducto(elemento) {
         cuerpo.innerHTML = '';
 
         filtro.forEach(producto => {
-            let prod = empresas.filter(empresa => empresa._id == producto.codigoEmpresa)[0].nombre;
             cuerpo.innerHTML +=
                 `<tr>
                 <th scope="row">${producto._id}</th>
                 <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
-                <td>${prod}</td>
                 <td>${producto.precio} Lps.</td>
             </tr>`;
         });
@@ -587,17 +725,40 @@ function nombreProducto(elemento) {
 
 function eliminarProducto() {
     let codigo = document.getElementById('selectcodigo-eliminarProducto');
-    let filtro = productos.filter(producto => producto._id == codigo.value)[0];
-    if (confirm("¿Está seguro que desea eliminar el producto?")) {
-        axios({
-            method: 'DELETE',
-            url: `http://localhost:4200/productos/${codigo.value}`
-        })
-            .then(res => {
-                alert(res.data.mensaje);
-                cargarValores();
-            })
+    modalBodyAdministrador2.parentNode.classList.add('borde-amarillo');
+    modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+    modalBodyAdministrador2.innerHTML =
+        `<h5 class="titulo-modal my-4">¿Está seguro que desea eliminar el producto?</h5>
+        <div class="advertencia my-3">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h6 class="subtitulo-modal">Esta acción no se puede revertir.</h6>
+        <div class="botones-modal mt-4 mb-3">
+            <button class="boton boton-blanco borde-rojo" onclick="cerrarModal2();">Cerrar</button>
+            <button class="boton boton-blanco borde-verde" onclick="eliminarPro('${codigo.value}');">Aceptar</button>
+        </div>`;
+    if (codigo.value != '') {
+        abrirModal2(); 
     }
+}
+
+function eliminarPro(codigo) {
+    axios({
+        method: 'DELETE',
+        url: `http://localhost:4200/productos/${codigo}`
+    })
+        .then(res => {
+            modalBodyAdministrador2.parentNode.classList.add('borde-verde');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-amarillo')
+            modalBodyAdministrador2.innerHTML =
+                `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
+                <div class="check my-3">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <button class="boton boton-blanco borde-verde my-4" onclick="cerrarModal2()">Aceptar</button>`;
+            cargarValores();
+        })
 }
 
 var orden;
@@ -636,6 +797,21 @@ function abrirModal(codigo) {
     });
     orden = ordenes.filter(elem => elem._id == codigo)[0];
     $('#modal').modal('show');
+}
+
+function abrirModal2() {
+    $('#modal2').modal('show');
+}
+
+function cerrarModal() {
+    $('#modal').modal('hide');
+}
+
+function cerrarModal2() {
+    $('#modal2').modal('hide');
+    modalBodyAdministrador2.parentNode.classList.remove('borde-verde');
+    modalBodyAdministrador2.parentNode.classList.remove('borde-amarillo');
+    modalBodyAdministrador2.parentNode.classList.add('borde-rojo');
 }
 
 function asignarMotorista() {
@@ -770,6 +946,28 @@ function listarEmpresasCategoria(elemento) {
         });
     } else {
         llenarTablaEmpresa();
+    }
+}
+
+function listarProductosEmpresa(elemento) {
+    filtro = productos.filter(producto => (producto.codigoEmpresa == elemento.value));
+
+    if (filtro.length != 0) {
+        let cuerpo = document.getElementById('cuerpo-tablaProductos');
+        cuerpo.innerHTML = '';
+
+        filtro.forEach(producto => {
+            cuerpo.innerHTML +=
+                `<tr>
+                <th scope="row">${producto._id}</th>
+                <td>${producto.nombre}</td>
+                <td>${producto.descripcion}</td>
+                <td>${producto.cantidad}</td>
+                <td>${producto.precio} Lps.</td>
+            </tr>`;
+        });
+    } else {
+        llenarTablaProductos();
     }
 }
 

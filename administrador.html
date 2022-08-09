@@ -20,7 +20,6 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=" async defer></script>
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +34,7 @@
 
 <body>
     <div id="contenedor">
-        <div id="menu">
+        <div id="menu" onmouseenter="menu(1);" onmouseleave="menu(0);">
             <section id="cabecera-menu">
                 <img id="logo" src="img/logo.svg" alt="Logo">
                 <a href="login.html" onclick="cerrarSesion();"><i class="fa-solid fa-arrow-right-from-bracket mr-1 cerrar-sesion"></i></a>
@@ -381,11 +380,11 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Cantidad:
-                    <input type="text" class="form-control borde-azul" id="txtcantidad-agregarProducto" required>
+                    <input type="number" class="form-control borde-azul" id="txtcantidad-agregarProducto" step="1" min="0" value="0" required>
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Precio (lps.):
-                    <input type="text" class="form-control borde-azul" id="txtprecio-agregarProducto" required>
+                    <input type="number" class="form-control borde-azul" id="txtprecio-agregarProducto" step=".01" min="0" value="0" required>
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Empresa:
@@ -421,11 +420,11 @@
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Cantidad:
-                    <input type="text" class="form-control borde-azul" id="txtcantidad-actualizarProducto" required>
+                    <input type="number" class="form-control borde-azul" id="txtcantidad-actualizarProducto" min="0" step="1" value="0" required>
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Precio (lps.):
-                    <input type="text" class="form-control borde-azul" id="txtprecio-actualizarProducto" required>
+                    <input type="number" class="form-control borde-azul" id="txtprecio-actualizarProducto" min="0" step="0.01" value="0" required>
                 </div>
                 <div class="col-12 col-md-6 pt-3">
                     Empresa:
@@ -446,8 +445,12 @@
         <section id="productos-mostrar" class="sections bg-white pt-3 borde-azul">
             <h3 class="ml-4">Productos registrados</h3>
             <div class="row p-3">
-                <div class="col-md-8 col-2"></div>
-                <div class="col-md-4 col-10">
+                <div class="col-md-6 col-0"></div>
+                <div class="col-md-3 col-6">
+                    Empresa:
+                    <select id="selectempresa-verProducto" class="form-control borde-azul" onchange="listarProductosEmpresa(this);"></select>
+                </div>
+                <div class="col-md-3 col-6">
                     Buscar:
                     <input type="text" class="form-control borde-azul" id="txtbuscar-verProducto" onkeyup="buscarProducto(this);">
                 </div>
@@ -460,7 +463,6 @@
                             <th scope="col">Producto</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Cantidad</th>
-                            <th scope="col">Empresa</th>
                             <th scope="col">Precio</th>
                         </tr>
                     </thead>
@@ -532,9 +534,20 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content borde-rojo">
+                <div id="modal-body-administrador2" class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
-<script src="js/script.js"></script>
 <script src="js/mapa.js"></script>
+<script src="js/script.js"></script>
 
 </html>
