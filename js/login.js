@@ -13,15 +13,12 @@ function validarFormulario() {
             tipo: 'A'
         }
 
-        console.log(usuario);
-
         axios({
             method: 'POST',
             url: 'http://localhost:4200/usuarios/login/A',
             data: usuario
         })
             .then(res => {
-                console.log(res.data);
                 if (res.data.codigo == 0) {
                     modalBodySesion.innerHTML =
                         `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
@@ -35,7 +32,6 @@ function validarFormulario() {
                 }
                 
             })
-            .catch(error => console.log('error', error));
     }
 }
 

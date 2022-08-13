@@ -7,6 +7,11 @@ var usuarios = [];
 var nombreAdmin = obtenerParametro('nom');
 var idSession = obtenerParametro('ses');
 
+var orden;
+
+var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+var expTelefono = /^\d{4}-\d{4}$/
+
 if (idSession.length == 0) {
     idSession = '1';
 }
@@ -17,7 +22,6 @@ function verificarSesion() {
         url: `http://localhost:4200/sesiones/${idSession}`,
     })
         .then(res => {
-            console.log(res.data);
             if (res.data.codigo == 0) {
                 window.open(`login.html`, '_self');
             } else {
@@ -25,7 +29,6 @@ function verificarSesion() {
                 cargarValores();
             }
         })
-        .catch(error => console.log('error de la verificación', error));
 }
 
 verificarSesion();
@@ -182,11 +185,11 @@ function agregarCategoria() {
 
     if (nombre.value == '' || descripcion.value == '' || imagen.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
         abrirModal2();
     } else {
@@ -203,7 +206,8 @@ function agregarCategoria() {
             .then(res => {
                 modalBodyAdministrador2.parentNode.classList.add('borde-verde');
                 modalBodyAdministrador2.parentNode.classList.remove('borde-rojo');
-                
+                modalBodyAdministrador2.parentNode.classList.remove('borde-amarillo');
+
                 modalBodyAdministrador2.innerHTML =
                     `<h5 class="titulo-modal my-4">${res.data.mensaje}</h5>
                     <div class="check my-3">
@@ -237,11 +241,11 @@ function actualizarCategoria() {
 
     if (nombre.value == '' || descripcion.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos de tipo texto.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
         abrirModal2();
     } else {
@@ -366,11 +370,29 @@ function agregarEmpresa() {
 
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '' || imagen.value == '' || banner.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if (!expCorreo.test(correo.value)){
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Correo inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, ingresa un correo válido.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if (!expTelefono.test(telefono.value)){
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Teléfono inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, ingresa un número válido.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
         abrirModal2();
     } else {
@@ -444,11 +466,29 @@ function actualizarEmpresa() {
 
     if (nombre.value == '' || descripcion.value == '' || direccion.value == '' || telefono.value == '' || correo.value == '' || categoria.value == '' || calificacion.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos de tipo texto.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if (!expCorreo.test(correo.value)){
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Correo inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, ingresa un correo válido.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if (!expTelefono.test(telefono.value)){
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Teléfono inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Por favor, ingresa un número válido.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
         abrirModal2();
     } else {
@@ -582,14 +622,39 @@ function agregarProducto() {
     let empresa = document.getElementById('selectempresa-agregarProducto');
     let imagen = document.getElementById('fileimagen-agregarProducto');
 
+    let n = Number(cantidad.value)
+    let m = Number(precio.value)
+
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '' || imagen.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if ((n % 1 != 0) || n < 1) {
+            modalBodyAdministrador2.parentNode.classList.add('borde-rojo');
+            modalBodyAdministrador2.parentNode.classList.remove('borde-naranja');
+            modalBodyAdministrador2.innerHTML =
+                `<h5 class="titulo-modal my-4">¡Cantidad inválida!</h5>
+                <div class="error my-3">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <h6 class="subtitulo-modal">Ingrese un entero mayor que 0.</h6>
+                <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2();">Aceptar</button>`;
+            abrirModal2();
+    } else if (m <= 0) {
+        modalBodyAdministrador2.parentNode.classList.add('borde-rojo');
+        modalBodyAdministrador2.parentNode.classList.remove('borde-naranja');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">Precio inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Ingrese un número mayor que 0.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2();">Aceptar</button>`;
         abrirModal2();
     } else {
         let formData = new FormData();
@@ -648,14 +713,39 @@ function actualizarProducto() {
     let empresa = document.getElementById('selectempresa-actualizarProducto');
     let imagen = document.getElementById('fileimagen-actualizarProducto');
 
+    let n = Number(cantidad.value)
+    let m = Number(precio.value)
+
     if (nombre.value == '' || descripcion.value == '' || cantidad.value == '' || precio.value == '' || empresa.value == '') {
         modalBodyAdministrador2.innerHTML =
-            `<h5 class="titulo-modal my-4">¡Algunos campos están vacíos!</h5>
+            `<h5 class="titulo-modal my-4">¡Hay campos vacíos!</h5>
             <div class="error my-3">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h6 class="subtitulo-modal">Por favor, rellene todos los campos de tipo texto.</h6>
+            <h6 class="subtitulo-modal">Por favor, llene todos los campos de tipo texto.</h6>
             <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2()">Aceptar</button>`;
+        abrirModal2();
+    } else if ((n % 1 != 0) || n < 1) {
+        modalBodyAdministrador2.parentNode.classList.add('borde-rojo');
+        modalBodyAdministrador2.parentNode.classList.remove('borde-naranja');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">¡Cantidad inválida!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Ingrese un entero mayor que 0.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2();">Aceptar</button>`;
+        abrirModal2();
+    } else if (m <= 0) {
+        modalBodyAdministrador2.parentNode.classList.add('borde-rojo');
+        modalBodyAdministrador2.parentNode.classList.remove('borde-naranja');
+        modalBodyAdministrador2.innerHTML =
+            `<h5 class="titulo-modal my-4">Precio inválido!</h5>
+            <div class="error my-3">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h6 class="subtitulo-modal">Ingrese un número mayor que 0.</h6>
+            <button class="boton boton-blanco borde-rojo my-4" onclick="cerrarModal2();">Aceptar</button>`;
         abrirModal2();
     } else {
         let formData = new FormData();
@@ -771,7 +861,6 @@ function eliminarPro(codigo) {
         })
 }
 
-var orden;
 function generarOrdenes() {
     let contenidoOrdenes = document.getElementById('contenido-ordenes');
     contenidoOrdenes.classList.remove('borde-naranja');
