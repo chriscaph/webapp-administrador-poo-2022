@@ -41,6 +41,11 @@ select {
     height: 500px;
 }
 
+h6 {
+    word-break: break-all;
+    white-space: normal;
+}
+
 .subsecciones {
     background-color: white;
     border-radius: 5px;

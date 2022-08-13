@@ -876,7 +876,7 @@ function generarOrdenes() {
                 contenidoOrdenes.innerHTML +=
                     `<div class="col-12 py-1">
                     <div class="contenedorOrden row borde-azul p-1 radius">
-                        <h4 class="col-12 col-sm-4 text-center pt-2">${elem.nombre}</h4>
+                        <h4 class="col-12 col-sm-4 text-left pt-2">${elem.nombre}</h4>
                         <button class="boton boton-verde col-sm-4 col-12" onclick="abrirModal('${elem._id}');">Asignar</button>
                         <button class="boton boton-naranja col-sm-4 col-12" onclick="verOrden('${elem._id}'); cargarMapa(${elem.envio.coordenadas.longitud}, ${elem.envio.coordenadas.latitud});">Ver orden</button>
                     </div>
@@ -973,7 +973,7 @@ function verOrden(codigo) {
                 </div>
                 <div class="col-12">
                     <h6>Total a pagar:</h6>
-                    <h6 class="gris pl-5 pb-2">${orden.envio.total} Lps.</h6>
+                    <h6 class="gris pl-5 pb-2">${orden.envio.total.toFixed(2)} Lps.</h6>
                 </div>
             </div>
             <div class="col-12 col-md-6">
