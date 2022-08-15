@@ -1,21 +1,3 @@
-var categorias = [];
-var empresas = [];
-var productos = [];
-var ordenes = [];
-var usuarios = [];
-
-var nombreAdmin = obtenerParametro('nom');
-var idSession = obtenerParametro('ses');
-
-var orden;
-
-var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-var expTelefono = /^\d{4}-\d{4}$/
-
-if (idSession.length == 0) {
-    idSession = '1';
-}
-
 function verificarSesion() {
     axios({
         method: 'get',
@@ -30,13 +12,6 @@ function verificarSesion() {
             }
         })
 }
-
-verificarSesion();
-
-var sections = document.getElementsByClassName('sections');
-var sectionPrincipal = document.getElementById('section-principal');
-var controles = document.getElementsByClassName('control');
-var modalBodyAdministrador2 = document.getElementById('modal-body-administrador2');
 
 function generarArregloUsuarios() {
     axios({
@@ -1098,3 +1073,30 @@ function renderImage(elemento) {
     let imagen = document.getElementById(`${elemento.id}-2`);
     imagen.setAttribute('src', URL.createObjectURL(elemento.files[0]));
 }
+
+
+//################################################################
+var categorias = [];
+var empresas = [];
+var productos = [];
+var ordenes = [];
+var usuarios = [];
+
+var nombreAdmin = obtenerParametro('nom');
+var idSession = obtenerParametro('ses');
+
+var orden;
+
+var expCorreo = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+var expTelefono = /^\d{4}-\d{4}$/
+
+var sections = document.getElementsByClassName('sections');
+var sectionPrincipal = document.getElementById('section-principal');
+var controles = document.getElementsByClassName('control');
+var modalBodyAdministrador2 = document.getElementById('modal-body-administrador2');
+
+if (idSession.length == 0) {
+    idSession = '1';
+}
+
+verificarSesion();
