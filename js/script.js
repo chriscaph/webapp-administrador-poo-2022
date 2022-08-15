@@ -116,8 +116,8 @@ function cargarValores() {
     empresaAgregarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
     categoriaActualizarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
     empresaActualizarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
-    categoriaMostrarEmpresa.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
-    empresaMostrarProducto.innerHTML = '<option disabled selected value> -- Seleccione una opción -- </option>';
+    categoriaMostrarEmpresa.innerHTML = '<option selected value="0"> -- Seleccione una opción -- </option>';
+    empresaMostrarProducto.innerHTML = '<option selected value="0"> -- Seleccione una opción -- </option>';
 
     axios({
         method: 'GET',
@@ -294,22 +294,24 @@ function llenarTablaCategoria() {
 }
 
 function buscarCategoria(elemento) {
-    filtro = categorias.filter(categoria => (categoria._id == elemento.value || categoria.nombre == elemento.value || categoria.descripcion == elemento.value));
-
-    if (filtro.length != 0) {
-        let cuerpo = document.getElementById('cuerpo-tablaCategorias');
-        cuerpo.innerHTML = '';
-
-        filtro.forEach(categoria => {
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${categoria._id}</th>
-                <td>${categoria.nombre}</td>
-                <td>${categoria.descripcion}</td>
-            </tr>`;
-        });
-    } else {
+    let cuerpo = document.getElementById('cuerpo-tablaCategorias');
+    cuerpo.innerHTML = '';
+    if (elemento.value == '') {
         llenarTablaCategoria();
+    } else {
+        filtro = categorias.filter(categoria => (categoria._id.toUpperCase().includes(elemento.value.toUpperCase()) || categoria.nombre.toUpperCase().includes(elemento.value.toUpperCase()) || categoria.descripcion.toUpperCase().includes(elemento.value.toUpperCase())));
+
+        if (filtro.length != 0) {
+            filtro.forEach(categoria => {
+                cuerpo.innerHTML +=
+                    `<tr>
+                    <th scope="row">${categoria._id}</th>
+                    <td>${categoria.nombre}</td>
+                    <td>${categoria.descripcion}</td>
+                </tr>`;
+            });
+            
+        }
     }
 }
 
@@ -548,12 +550,13 @@ function llenarTablaEmpresa() {
 }
 
 function buscarEmpresa(elemento) {
-    filtro = empresas.filter(empresa => (empresa._id == elemento.value || empresa.nombre == elemento.value || empresa.descripcion == elemento.value || empresa.telefono == elemento.value || empresa.correo == elemento.value || empresa.direccion == elemento.value));
+    document.getElementById('selectcategoria-verEmpresa').value = 0;
+    let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
+    cuerpo.innerHTML = '';
+
+    filtro = empresas.filter(empresa => (empresa._id.toUpperCase().includes(elemento.value.toUpperCase()) || empresa.nombre.toUpperCase().includes(elemento.value.toUpperCase()) || empresa.descripcion.toUpperCase().includes(elemento.value.toUpperCase()) || empresa.telefono.toUpperCase().includes(elemento.value.toUpperCase()) || empresa.correo.toUpperCase().includes(elemento.value.toUpperCase()) || empresa.direccion.toUpperCase().includes(elemento.value.toUpperCase())));
 
     if (filtro.length != 0) {
-        let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
-        cuerpo.innerHTML = '';
-
         filtro.forEach(empresa => {
             cuerpo.innerHTML +=
                 `<tr>
@@ -565,8 +568,6 @@ function buscarEmpresa(elemento) {
                 <td>${empresa.correo}</td>
             </tr>`;
         });
-    } else {
-        llenarTablaEmpresa();
     }
 }
 
@@ -797,12 +798,13 @@ function llenarTablaProductos() {
 }
 
 function buscarProducto(elemento) {
-    filtro = productos.filter(producto => (producto._id == elemento.value || producto.nombre == elemento.value || producto.descripcion == elemento.value || producto.cantidad == elemento.value || producto.empresa == elemento.value || producto.precio == elemento.value));
+    document.getElementById('selectempresa-verProducto').value = 0;
+    let cuerpo = document.getElementById('cuerpo-tablaProductos');
+    cuerpo.innerHTML = '';
+
+    filtro = productos.filter(producto => (producto._id.toUpperCase().includes(elemento.value.toUpperCase()) || producto.nombre.toUpperCase().includes(elemento.value.toUpperCase()) || producto.descripcion.toUpperCase().includes(elemento.value.toUpperCase()) || producto.cantidad.toString().includes(elemento.value) || producto.precio.toString().includes(elemento.value)));
 
     if (filtro.length != 0) {
-        let cuerpo = document.getElementById('cuerpo-tablaProductos');
-        cuerpo.innerHTML = '';
-
         filtro.forEach(producto => {
             cuerpo.innerHTML +=
                 `<tr>
@@ -813,8 +815,6 @@ function buscarProducto(elemento) {
                 <td>${producto.precio} Lps.</td>
             </tr>`;
         });
-    } else {
-        llenarTablaProductos();
     }
 }
 
@@ -1026,47 +1026,53 @@ function aprobarMotorista(codigo, val) {
 }
 
 function listarEmpresasCategoria(elemento) {
-    filtro = empresas.filter(empresa => (empresa.codigoCategoria == elemento.value));
-
-    if (filtro.length != 0) {
-        let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
-        cuerpo.innerHTML = '';
-
-        filtro.forEach(empresa => {
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${empresa._id}</th>
-                <td>${empresa.nombre}</td>
-                <td>${empresa.descripcion}</td>
-                <td>${empresa.direccion}</td>
-                <td>${empresa.telefono}</td>
-                <td>${empresa.correo}</td>
-            </tr>`;
-        });
-    } else {
+    let cuerpo = document.getElementById('cuerpo-tablaEmpresas');
+    cuerpo.innerHTML = '';
+    if (elemento.value == 0) {
         llenarTablaEmpresa();
+    } else {
+        filtro = empresas.filter(empresa => (empresa.codigoCategoria == elemento.value));
+
+        if (filtro.length != 0) {
+            
+
+            filtro.forEach(empresa => {
+                cuerpo.innerHTML +=
+                    `<tr>
+                    <th scope="row">${empresa._id}</th>
+                    <td>${empresa.nombre}</td>
+                    <td>${empresa.descripcion}</td>
+                    <td>${empresa.direccion}</td>
+                    <td>${empresa.telefono}</td>
+                    <td>${empresa.correo}</td>
+                </tr>`;
+            });
+        }
     }
 }
 
 function listarProductosEmpresa(elemento) {
-    filtro = productos.filter(producto => (producto.codigoEmpresa == elemento.value));
-
-    if (filtro.length != 0) {
-        let cuerpo = document.getElementById('cuerpo-tablaProductos');
-        cuerpo.innerHTML = '';
-
-        filtro.forEach(producto => {
-            cuerpo.innerHTML +=
-                `<tr>
-                <th scope="row">${producto._id}</th>
-                <td>${producto.nombre}</td>
-                <td>${producto.descripcion}</td>
-                <td>${producto.cantidad}</td>
-                <td>${producto.precio} Lps.</td>
-            </tr>`;
-        });
-    } else {
+    let cuerpo = document.getElementById('cuerpo-tablaProductos');
+    cuerpo.innerHTML = '';
+    if (elemento.value == 0) {
         llenarTablaProductos();
+    } else {
+        filtro = productos.filter(producto => (producto.codigoEmpresa == elemento.value));
+
+        if (filtro.length != 0) {
+            
+
+            filtro.forEach(producto => {
+                cuerpo.innerHTML +=
+                    `<tr>
+                    <th scope="row">${producto._id}</th>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.descripcion}</td>
+                    <td>${producto.cantidad}</td>
+                    <td>${producto.precio} Lps.</td>
+                </tr>`;
+            });
+        }
     }
 }
 
